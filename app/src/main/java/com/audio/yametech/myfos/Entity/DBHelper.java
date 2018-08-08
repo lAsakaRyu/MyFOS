@@ -65,9 +65,12 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String KEY_DATE_CHANGE = "date_change";
     private static final String KEY_SECURITY_ID = "security_id";
 
+    private SQLiteDatabase db;
+
 
     public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        db = this.getWritableDatabase();
     }
 
     //creating Tables
@@ -159,7 +162,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     public void addNewStaff(Staff staff) {
-        SQLiteDatabase db = this.getWritableDatabase();
+        
 
         ContentValues values = new ContentValues();
 
@@ -177,11 +180,11 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put(KEY_LEAVE_DATE, staff.get_LeaveDate());
 
         db.insert(TABLE_STAFF, null, values);
-        db.close();
+        
     }
 
     public boolean updateStaffInfo(Staff staff) {
-        SQLiteDatabase db = this.getWritableDatabase();
+        
 
         ContentValues args = new ContentValues();
 
@@ -201,7 +204,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     public boolean deleteStaff(int delID){
-        SQLiteDatabase db = this.getWritableDatabase();
+        
 
         return db.delete(TABLE_STAFF, KEY_ID + "=" + delID, null) > 0;
     }
@@ -211,7 +214,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
         String selectQuery = "SELECT  * FROM " + TABLE_STAFF;
 
-        SQLiteDatabase db = this.getWritableDatabase();
+        
         Cursor cursor = db.rawQuery(selectQuery, null);
 
         if (cursor.moveToFirst()) {
@@ -240,7 +243,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public Staff getStaffByID(String ID){
         Staff staff = null;
-        SQLiteDatabase db = this.getWritableDatabase();
+        
         Cursor cursor = db.rawQuery("SELECT * FROM "+TABLE_STAFF+" WHERE ID = ?", new String[]{ID});
         if (cursor.moveToFirst()){
             staff = new Staff(
@@ -258,14 +261,14 @@ public class DBHelper extends SQLiteOpenHelper {
                     cursor.getString(11)
             );
         }
-        db.close();
+        
         cursor.close();
         return staff;
     }
 
 
     public void addNewSecurity(Security security) {
-        SQLiteDatabase db = this.getWritableDatabase();
+        
 
         ContentValues values = new ContentValues();
 
@@ -274,11 +277,11 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put(KEY_PASSWORD, security.get_Password());
 
         db.insert(TABLE_SECURITY, null, values);
-        db.close();
+        
     }
 
     public boolean updateSecurityInfo(Security security) {
-        SQLiteDatabase db = this.getWritableDatabase();
+        
 
         ContentValues args = new ContentValues();
 
@@ -289,7 +292,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     public boolean deleteSecurity(int delID){
-        SQLiteDatabase db = this.getWritableDatabase();
+        
 
         return db.delete(TABLE_SECURITY, KEY_ID + "=" + delID, null) > 0;
     }
@@ -299,7 +302,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
         String selectQuery = "SELECT  * FROM " + TABLE_SECURITY;
 
-        SQLiteDatabase db = this.getWritableDatabase();
+        
         Cursor cursor = db.rawQuery(selectQuery, null);
 
         if (cursor.moveToFirst()) {
@@ -315,7 +318,7 @@ public class DBHelper extends SQLiteOpenHelper {
             } while (cursor.moveToNext());
         }
         cursor.close();
-        db.close();
+        
         return securityList;
     }
 
@@ -338,7 +341,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
 
     public void addNewPlacedOrder(PlacedOrder placedOrder) {
-        SQLiteDatabase db = this.getWritableDatabase();
+        
 
         ContentValues values = new ContentValues();
 
@@ -347,11 +350,11 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put(KEY_STATUS, placedOrder.get_Status());
 
         db.insert(TABLE_PLACED_ORDER, null, values);
-        db.close();
+        
     }
 
     public boolean updatePlacedOrderInfo(PlacedOrder placedOrder) {
-        SQLiteDatabase db = this.getWritableDatabase();
+        
 
         ContentValues args = new ContentValues();
 
@@ -363,7 +366,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     public boolean deletePlacedOrder(int delID){
-        SQLiteDatabase db = this.getWritableDatabase();
+        
 
         return db.delete(TABLE_PLACED_ORDER, KEY_ID + "=" + delID, null) > 0;
     }
@@ -373,7 +376,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
         String selectQuery = "SELECT  * FROM " + TABLE_PLACED_ORDER;
 
-        SQLiteDatabase db = this.getWritableDatabase();
+        
         Cursor cursor = db.rawQuery(selectQuery, null);
 
         if (cursor.moveToFirst()) {
@@ -394,7 +397,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
 
     public void addNewPayment(Payment payment) {
-        SQLiteDatabase db = this.getWritableDatabase();
+        
 
         ContentValues values = new ContentValues();
 
@@ -407,11 +410,11 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put(KEY_PAYMENT_DATE, payment.get_PaymentDate());
 
         db.insert(TABLE_PAYMENT, null, values);
-        db.close();
+        
     }
 
     public boolean updatePaymentInfo(Payment payment) {
-        SQLiteDatabase db = this.getWritableDatabase();
+        
 
         ContentValues args = new ContentValues();
 
@@ -427,7 +430,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     public boolean deletePayment(int delID){
-        SQLiteDatabase db = this.getWritableDatabase();
+        
 
         return db.delete(TABLE_PAYMENT, KEY_ID + "=" + delID, null) > 0;
     }
@@ -437,7 +440,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
         String selectQuery = "SELECT  * FROM " + TABLE_PAYMENT;
 
-        SQLiteDatabase db = this.getWritableDatabase();
+        
         Cursor cursor = db.rawQuery(selectQuery, null);
 
         if (cursor.moveToFirst()) {
@@ -462,7 +465,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
 
     public void addNewOrderDetail(OrderDetail orderDetail) {
-        SQLiteDatabase db = this.getWritableDatabase();
+        
 
         ContentValues values = new ContentValues();
 
@@ -472,11 +475,11 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put(KEY_SUB_TOTAL, orderDetail.get_SubTotal());
 
         db.insert(TABLE_ORDER_DETAIL, null, values);
-        db.close();
+        
     }
 
     public boolean updateOrderDetailInfo(OrderDetail orderDetail) {
-        SQLiteDatabase db = this.getWritableDatabase();
+        
 
         ContentValues args = new ContentValues();
 
@@ -489,7 +492,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     public boolean deleteOrderDetail(int delID){
-        SQLiteDatabase db = this.getWritableDatabase();
+        
 
         return db.delete(TABLE_ORDER_DETAIL, KEY_ID + "=" + delID, null) > 0;
     }
@@ -499,7 +502,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
         String selectQuery = "SELECT  * FROM " + TABLE_ORDER_DETAIL;
 
-        SQLiteDatabase db = this.getWritableDatabase();
+        
         Cursor cursor = db.rawQuery(selectQuery, null);
 
         if (cursor.moveToFirst()) {
@@ -519,54 +522,54 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
 
-    public void addNewMenu(Menu menu) {
-        SQLiteDatabase db = this.getWritableDatabase();
+    public void addNewMenu(Menus menus) {
+        
 
         ContentValues values = new ContentValues();
-
-        values.put(KEY_NAME, menu.get_Name());
-        values.put(KEY_DESC, menu.get_Desc());
-        values.put(KEY_PRICE, menu.get_Price());
-        values.put(KEY_TYPE, menu.get_Type());
-        values.put(KEY_STATUS, menu.get_Status());
-        values.put(KEY_STOCK_STATUS, menu.get_StockStatus());
+        values.put(KEY_ID, menus.get_ID());
+        values.put(KEY_NAME, menus.get_Name());
+        values.put(KEY_DESC, menus.get_Desc());
+        values.put(KEY_PRICE, menus.get_Price());
+        values.put(KEY_TYPE, menus.get_Type());
+        values.put(KEY_STATUS, menus.get_Status());
+        values.put(KEY_STOCK_STATUS, menus.get_StockStatus());
 
         db.insert(TABLE_MENU, null, values);
-        db.close();
+        
     }
 
-    public boolean updateMenuInfo(Menu menu) {
-        SQLiteDatabase db = this.getWritableDatabase();
+    public boolean updateMenuInfo(Menus menus) {
+        
 
         ContentValues args = new ContentValues();
 
-        args.put(KEY_NAME, menu.get_Name());
-        args.put(KEY_DESC, menu.get_Desc());
-        args.put(KEY_PRICE, menu.get_Price());
-        args.put(KEY_TYPE, menu.get_Type());
-        args.put(KEY_STATUS, menu.get_Status());
-        args.put(KEY_STOCK_STATUS, menu.get_StockStatus());
+        args.put(KEY_NAME, menus.get_Name());
+        args.put(KEY_DESC, menus.get_Desc());
+        args.put(KEY_PRICE, menus.get_Price());
+        args.put(KEY_TYPE, menus.get_Type());
+        args.put(KEY_STATUS, menus.get_Status());
+        args.put(KEY_STOCK_STATUS, menus.get_StockStatus());
 
-        return db.update(TABLE_MENU, args, KEY_ID + "=" + menu.get_ID(), null) > 0;
+        return db.update(TABLE_MENU, args, KEY_ID + "=" + menus.get_ID(), null) > 0;
     }
 
     public boolean deleteMenu(int delID){
-        SQLiteDatabase db = this.getWritableDatabase();
+        
 
         return db.delete(TABLE_MENU, KEY_ID + "=" + delID, null) > 0;
     }
 
-    public List<Menu> getAllMenuList() {
-        List<Menu> menuList = new ArrayList<>();
+    public List<Menus> getAllMenuList() {
+        List<Menus> menusList = new ArrayList<>();
 
         String selectQuery = "SELECT  * FROM " + TABLE_MENU;
 
-        SQLiteDatabase db = this.getWritableDatabase();
+        
         Cursor cursor = db.rawQuery(selectQuery, null);
 
         if (cursor.moveToFirst()) {
             do {
-                Menu menu = new Menu(
+                Menus menus = new Menus(
                         cursor.getString(0),
                         cursor.getString(1),
                         cursor.getString(2),
@@ -577,15 +580,46 @@ public class DBHelper extends SQLiteOpenHelper {
                 );
 
                 // Adding contact to list
-                menuList.add(menu);
+                menusList.add(menus);
             } while (cursor.moveToNext());
         }
-        return menuList;
+        return menusList;
+    }
+
+    public String[] getMenuIDs(){
+        String selectQuery = "SELECT ID FROM " + TABLE_MENU;
+        
+        Cursor cursor = db.rawQuery(selectQuery,null);
+        List<String> strings = new ArrayList<>();
+        if (cursor.moveToFirst()) {
+            do {
+                strings.add(cursor.getString(0));
+            } while (cursor.moveToNext());
+        }
+        return strings.toArray(new String[0]);
+    }
+
+    public Menus getMenu(String ID){
+        Menus menus = null;
+        String selectQuery = "SELECT * FROM " + TABLE_MENU +" WHERE ID = ?";
+        Cursor cursor = db.rawQuery(selectQuery,new String[]{ID});
+        if(cursor.moveToFirst()){
+            menus = new Menus(
+                    cursor.getString(0),
+                    cursor.getString(1),
+                    cursor.getString(2),
+                    cursor.getDouble(3),
+                    cursor.getString(4),
+                    cursor.getString(5),
+                    cursor.getString(6)
+            );
+        }
+        return menus;
     }
 
 
     public void addNewChangeLog(ChangeLog changeLog) {
-        SQLiteDatabase db = this.getWritableDatabase();
+        
 
         ContentValues values = new ContentValues();
 
@@ -593,11 +627,11 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put(KEY_SECURITY_ID, changeLog.get_SecurityID());
 
         db.insert(TABLE_CHANGE_LOG, null, values);
-        db.close();
+        
     }
 
     public boolean updateChangeLogInfo(ChangeLog changeLog) {
-        SQLiteDatabase db = this.getWritableDatabase();
+        
 
         ContentValues args = new ContentValues();
 
@@ -608,7 +642,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     public boolean deleteChangeLog(int delID){
-        SQLiteDatabase db = this.getWritableDatabase();
+        
 
         return db.delete(TABLE_CHANGE_LOG, KEY_ID + "=" + delID, null) > 0;
     }
@@ -618,7 +652,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
         String selectQuery = "SELECT  * FROM " + TABLE_CHANGE_LOG;
 
-        SQLiteDatabase db = this.getWritableDatabase();
+        
         Cursor cursor = db.rawQuery(selectQuery, null);
 
         if (cursor.moveToFirst()) {

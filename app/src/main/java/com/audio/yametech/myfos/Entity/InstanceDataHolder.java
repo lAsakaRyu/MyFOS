@@ -6,7 +6,9 @@ package com.audio.yametech.myfos.Entity;
 
 public class InstanceDataHolder {
     private DBHelper _DbHelper;
-    private Staff _Staff;
+    private Staff _ActiveStaff;
+    private int _ActiveTableNo;
+
     private static final InstanceDataHolder ourInstance = new InstanceDataHolder();
 
     public static InstanceDataHolder getInstance() {
@@ -16,12 +18,12 @@ public class InstanceDataHolder {
     private InstanceDataHolder() {
     }
 
-    public Staff get_Staff() {
-        return _Staff;
+    public Staff get_ActiveStaff() {
+        return _ActiveStaff;
     }
 
-    public void set_Staff(Staff _Staff) {
-        this._Staff = _Staff;
+    public void set_ActiveStaff(Staff _ActiveStaff) {
+        this._ActiveStaff = _ActiveStaff;
     }
 
     public DBHelper get_DbHelper() {
@@ -30,5 +32,13 @@ public class InstanceDataHolder {
 
     public void set_DbHelper(DBHelper _DbHelper) {
         this._DbHelper = _DbHelper;
+    }
+
+    public int get_ActiveTableNo() {
+        return _ActiveTableNo;
+    }
+
+    public void set_ActiveTableNo(int _ActiveTableNo) {
+        this._ActiveTableNo = _ActiveTableNo;
     }
 }

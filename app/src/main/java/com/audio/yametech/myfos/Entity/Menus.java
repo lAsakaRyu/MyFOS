@@ -4,7 +4,7 @@ package com.audio.yametech.myfos.Entity;
  * Created by Aldnoah on 8/7/2018.
  */
 
-public class Menu {
+public class Menus {
     private String _ID;
     private String _Name;
     private String _Desc;
@@ -13,10 +13,10 @@ public class Menu {
     private String _Status;
     private String _StockStatus;
 
-    public Menu() {
+    public Menus() {
     }
 
-    public Menu(String _ID, String _Name, String _Desc, double _Price, String _Type, String _Status, String _StockStatus) {
+    public Menus(String _ID, String _Name, String _Desc, double _Price, String _Type, String _Status, String _StockStatus) {
         this._ID = _ID;
         this._Name = _Name;
         this._Desc = _Desc;
@@ -26,7 +26,7 @@ public class Menu {
         this._StockStatus = _StockStatus;
     }
 
-    public Menu(String _Name, String _Desc, double _Price, String _Type, String _Status, String _StockStatus) {
+    public Menus(String _Name, String _Desc, double _Price, String _Type, String _Status, String _StockStatus) {
         this._Name = _Name;
         this._Desc = _Desc;
         this._Price = _Price;
