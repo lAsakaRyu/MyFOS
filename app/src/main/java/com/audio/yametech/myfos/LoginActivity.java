@@ -3,6 +3,7 @@ package com.audio.yametech.myfos;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 
 import android.os.AsyncTask;
@@ -19,19 +20,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.audio.yametech.myfos.Entity.InstanceDataHolder;
 import com.audio.yametech.myfos.Entity.Security;
-import com.audio.yametech.myfos.Entity.SecurityDBHelper;
+import com.audio.yametech.myfos.Entity.Staff;
+import com.audio.yametech.myfos.Entity.DBHelper;
+import com.audio.yametech.myfos.Entity.Verification;
 
 /**
- * A login screen that offers login via email/password.
+ * A login screen that offers login via username/password.
  */
 public class LoginActivity extends AppCompatActivity {
-
-    /**
-     * Id to identity READ_CONTACTS permission request.
-     */
-    private static final int REQUEST_READ_CONTACTS = 0;
-
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
@@ -72,6 +70,8 @@ public class LoginActivity extends AppCompatActivity {
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+
+        InstanceDataHolder.getInstance().set_DbHelper(new DBHelper(this));
     }
 
 
@@ -109,7 +109,7 @@ public class LoginActivity extends AppCompatActivity {
             mUsernameView.setError(getString(R.string.error_field_required));
             focusView = mUsernameView;
             cancel = true;
-        } else if (!isEmailValid(username)) {
+        } else if (!isUsernameValid(username)) {
             mUsernameView.setError(getString(R.string.error_invalid_username));
             focusView = mUsernameView;
             cancel = true;
@@ -128,7 +128,7 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    private boolean isEmailValid(String username) {
+    private boolean isUsernameValid(String username) {
         //TODO: Replace this with your own logic
         return username.contains("S");
     }
@@ -182,7 +182,7 @@ public class LoginActivity extends AppCompatActivity {
 
         private final String username;
         private final String password;
-        private int result;
+        private Verification result = new Verification(2);
 
         UserLoginTask(String email, String password) {
             this.username = email;
@@ -199,9 +199,8 @@ public class LoginActivity extends AppCompatActivity {
             } catch (InterruptedException e) {
                 return false;
             }
-            SecurityDBHelper securityDBHelper = new SecurityDBHelper(getBaseContext());
-            //securityDBHelper.addNewSecurity(new Security("X0001","S0001","12341234"));
-            result = securityDBHelper.verifyLoginCredential(username,password);
+            //InstanceDataHolder.getInstance().get_DbHelper().addNewSecurity(new Security("X0001","S0001","12341234"));
+            result = InstanceDataHolder.getInstance().get_DbHelper().verifyLoginCredential(username,password);
             return true;
         }
 
@@ -211,7 +210,7 @@ public class LoginActivity extends AppCompatActivity {
             showProgress(false);
 
             if (success) {
-                switch(result){
+                switch(result.get_VerificationStatus()){
                     case 0:
                         mUsernameView.setError(getString(R.string.error_invalid_username));
                         mUsernameView.requestFocus();
@@ -221,6 +220,10 @@ public class LoginActivity extends AppCompatActivity {
                         mPasswordView.requestFocus();
                         break;
                     default:
+                        //InstanceDataHolder.getInstance().get_DbHelper().addNewStaff(new Staff("S0001","Alex Chew","Manager","Male","22/09/1997","970922565225","0163844970","chewhw-wa15@student.tarc.edu.my","Working","12341234","08/08/2018","?"));
+                        InstanceDataHolder.getInstance().set_Staff(InstanceDataHolder.getInstance().get_DbHelper().getStaffByID(result.get_StaffID()));
+                        Intent intent = new Intent(getBaseContext(),MainActivity.class);
+                        startActivity(intent);
                         finish();
                 }
             }
