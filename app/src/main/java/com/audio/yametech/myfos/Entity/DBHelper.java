@@ -13,7 +13,6 @@ import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class DBHelper extends SQLiteOpenHelper {
 
@@ -223,10 +222,10 @@ public class DBHelper extends SQLiteOpenHelper {
         return db.update(TABLE_STAFF, args, KEY_ID + "=" + staff.get_ID(), null) > 0;
     }
 
-    public boolean deleteStaff(int delID){
+    public boolean deleteStaff(String delID){
         
 
-        return db.delete(TABLE_STAFF, KEY_ID + "=" + delID, null) > 0;
+        return db.delete(TABLE_STAFF, KEY_ID + "= ?", new String[]{delID}) > 0;
     }
 
     public List<Staff> getAllStaffList() {
@@ -311,10 +310,10 @@ public class DBHelper extends SQLiteOpenHelper {
         return db.update(TABLE_SECURITY, args, KEY_ID + "=" + security.get_ID(), null) > 0;
     }
 
-    public boolean deleteSecurity(int delID){
+    public boolean deleteSecurity(String delID){
         
 
-        return db.delete(TABLE_SECURITY, KEY_ID + "=" + delID, null) > 0;
+        return db.delete(TABLE_SECURITY, KEY_ID + "= ?", new String[]{delID}) > 0;
     }
 
     public List<Security> getAllSecurityList() {
@@ -396,10 +395,10 @@ public class DBHelper extends SQLiteOpenHelper {
         return db.update(TABLE_PLACED_ORDER, args, KEY_ID + "=" + placedOrder.get_ID(), null) > 0;
     }
 
-    public boolean deletePlacedOrder(int delID){
+    public boolean deletePlacedOrder(String delID){
         
 
-        return db.delete(TABLE_PLACED_ORDER, KEY_ID + "=" + delID, null) > 0;
+        return db.delete(TABLE_PLACED_ORDER, KEY_ID + "= ?", new String[]{delID}) > 0;
     }
 
     public List<PlacedOrder> getAllPlacedOrderList() {
@@ -460,10 +459,10 @@ public class DBHelper extends SQLiteOpenHelper {
         return db.update(TABLE_PAYMENT, args, KEY_ID + "=" + payment.get_ID(), null) > 0;
     }
 
-    public boolean deletePayment(int delID){
+    public boolean deletePayment(String delID){
         
 
-        return db.delete(TABLE_PAYMENT, KEY_ID + "=" + delID, null) > 0;
+        return db.delete(TABLE_PAYMENT, KEY_ID + "= ?", new String[]{delID}) > 0;
     }
 
     public List<Payment> getAllPaymentList() {
@@ -523,10 +522,10 @@ public class DBHelper extends SQLiteOpenHelper {
         return db.update(TABLE_ORDER_DETAIL, args, KEY_ID + "=" + orderDetail.get_ID(), null) > 0;
     }
 
-    public boolean deleteOrderDetail(int delID){
+    public boolean deleteOrderDetail(String delID){
         
 
-        return db.delete(TABLE_ORDER_DETAIL, KEY_ID + "=" + delID, null) > 0;
+        return db.delete(TABLE_ORDER_DETAIL, KEY_ID + "= ?", new String[]{delID}) > 0;
     }
 
     public List<OrderDetail> getAllOrderDetailList() {
@@ -607,10 +606,10 @@ public class DBHelper extends SQLiteOpenHelper {
         return db.update(TABLE_MENU, args, KEY_ID + "=" + menus.get_ID(), null) > 0;
     }
 
-    public boolean deleteMenu(int delID){
+    public boolean deleteMenu(String delID){
         
 
-        return db.delete(TABLE_MENU, KEY_ID + "=" + delID, null) > 0;
+        return db.delete(TABLE_MENU, KEY_ID + "= ?", new String[]{delID}) > 0;
     }
 
     public List<Menus> getAllMenuList() {
@@ -695,10 +694,10 @@ public class DBHelper extends SQLiteOpenHelper {
         return db.update(TABLE_CHANGE_LOG, args, KEY_ID + "=" + changeLog.get_ID(), null) > 0;
     }
 
-    public boolean deleteChangeLog(int delID){
+    public boolean deleteChangeLog(String delID){
         
 
-        return db.delete(TABLE_CHANGE_LOG, KEY_ID + "=" + delID, null) > 0;
+        return db.delete(TABLE_CHANGE_LOG, KEY_ID + "= ?", new String[]{delID}) > 0;
     }
 
     public List<ChangeLog> getAllChangeLogList() {

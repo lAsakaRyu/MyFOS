@@ -109,8 +109,8 @@ public class MainActivity extends AppCompatActivity
         });
 
         menuIDSpinner = view.findViewById(R.id.menuIDSpinner);
-        InstanceDataHolder.getInstance().get_DbHelper().addNewMenu(new Menus(InstanceDataHolder.getInstance().get_DbHelper().getNewID("menu","M"),"Apple Juice","Apple juice is a fruit juice made by the maceration and pressing of apples.",5.00,"Drink","Available","Yes"));
-        InstanceDataHolder.getInstance().get_DbHelper().addNewMenu(new Menus(InstanceDataHolder.getInstance().get_DbHelper().getNewID("menu","M"),"Milo Ice","Iced Milo.",2.50,"Drink","Available","Yes"));
+        //InstanceDataHolder.getInstance().get_DbHelper().addNewMenu(new Menus(InstanceDataHolder.getInstance().get_DbHelper().getNewID("menu","M"),"Apple Juice","Apple juice is a fruit juice made by the maceration and pressing of apples.",5.00,"Drink","Available","Yes"));
+        //InstanceDataHolder.getInstance().get_DbHelper().addNewMenu(new Menus(InstanceDataHolder.getInstance().get_DbHelper().getNewID("menu","M"),"Milo Ice","Iced Milo.",2.50,"Drink","Available","Yes"));
         menuids = InstanceDataHolder.getInstance().get_DbHelper().getMenuIDs();
         ArrayAdapter aa2 = new ArrayAdapter(this,android.R.layout.simple_spinner_dropdown_item,menuids);
         menuIDSpinner.setAdapter(aa2);
@@ -132,7 +132,13 @@ public class MainActivity extends AppCompatActivity
         });
 
         menuItemListView = view.findViewById(R.id.menuItemListView);
-
+        menuItemListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                view.setSelected(true);
+                InstanceDataHolder.getInstance().set_SelectedOrder(((TextView)view.findViewById(R.id.idTextView)).getText().toString());
+            }
+        });
     }
 
     public void addOrderButton(View event){
@@ -151,13 +157,24 @@ public class MainActivity extends AppCompatActivity
         updateMenuListView(InstanceDataHolder.getInstance().get_ActiveTableNo());
     }
 
+    public void removeOrderButton(View event){
+        String orderDetailID = InstanceDataHolder.getInstance().get_SelectedOrder();
+        InstanceDataHolder.getInstance().get_DbHelper().deleteOrderDetail(orderDetailID);
+        updateMenuListView(InstanceDataHolder.getInstance().get_ActiveTableNo());
+    }
+
     public void updateMenuListView(String tableNumber){
         List<ExtendedOrderDetails> menuItems = InstanceDataHolder.getInstance().get_DbHelper().getOrderDetailsByTable(tableNumber);
-        for(ExtendedOrderDetails o:menuItems ){
-            Log.i("MyFOS",o.toString());
+        if(menuItems != null){
+            MenuItemAdapter menuItemAdapter = new MenuItemAdapter(this, R.layout.menu_item_list, menuItems);
+            menuItemListView.setAdapter(menuItemAdapter);
         }
-        MenuItemAdapter menuItemAdapter = new MenuItemAdapter(this, R.layout.menu_item_list, menuItems);
-        menuItemListView.setAdapter(menuItemAdapter);
+        else{
+            String placedOrderID = InstanceDataHolder.getInstance().get_DbHelper().getPlacedOrderID(tableNumber);
+            if(placedOrderID != null){
+                InstanceDataHolder.getInstance().get_DbHelper().deletePlacedOrder(placedOrderID);
+            }
+        }
     }
 
     public void tableButtonPressed(View event){

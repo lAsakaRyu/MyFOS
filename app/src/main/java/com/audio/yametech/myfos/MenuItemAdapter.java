@@ -46,7 +46,7 @@ public class MenuItemAdapter extends ArrayAdapter<ExtendedOrderDetails> {
         textViewName.setText(itemRecord.get_Name());
         textViewPrice.setText("RM "+String.format("%.2f",itemRecord.get_Price()));
         textViewQuantity.setText("x"+itemRecord.get_Qty());
-        textViewSubTotal.setText("RM "+itemRecord.get_SubTotal());
+        textViewSubTotal.setText("RM "+String.format("%.2f",itemRecord.get_SubTotal()));
 
 
         return convertView;

@@ -10,6 +10,7 @@ public class InstanceDataHolder {
     private String _ActiveTableNo;
     private Menus _ActiveMenuItem;
     private String _SelectedQuantity;
+    private String _SelectedOrder;
 
     private static final InstanceDataHolder ourInstance = new InstanceDataHolder();
 
@@ -58,5 +59,13 @@ public class InstanceDataHolder {
 
     public void set_SelectedQuantity(String _SelectedQuantity) {
         this._SelectedQuantity = _SelectedQuantity;
+    }
+
+    public String get_SelectedOrder() {
+        return _SelectedOrder;
+    }
+
+    public void set_SelectedOrder(String _SelectedOrder) {
+        this._SelectedOrder = _SelectedOrder;
     }
 }
