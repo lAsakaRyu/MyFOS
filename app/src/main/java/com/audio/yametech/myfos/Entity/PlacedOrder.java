@@ -7,20 +7,20 @@ package com.audio.yametech.myfos.Entity;
 public class PlacedOrder {
     private String _ID;
     private String _OrderDate;
-    private int _TableNumber;
+    private String _TableNumber;
     private String _Status;
 
     public PlacedOrder() {
     }
 
-    public PlacedOrder(String _ID, String _OrderDate, int _TableNumber, String _Status) {
+    public PlacedOrder(String _ID, String _OrderDate, String _TableNumber, String _Status) {
         this._ID = _ID;
         this._OrderDate = _OrderDate;
         this._TableNumber = _TableNumber;
         this._Status = _Status;
     }
 
-    public PlacedOrder(String _OrderDate, int _TableNumber, String _Status) {
+    public PlacedOrder(String _OrderDate, String _TableNumber, String _Status) {
         this._OrderDate = _OrderDate;
         this._TableNumber = _TableNumber;
         this._Status = _Status;
@@ -42,11 +42,11 @@ public class PlacedOrder {
         this._OrderDate = _OrderDate;
     }
 
-    public int get_TableNumber() {
+    public String get_TableNumber() {
         return _TableNumber;
     }
 
-    public void set_TableNumber(int _TableNumber) {
+    public void set_TableNumber(String _TableNumber) {
         this._TableNumber = _TableNumber;
     }
 

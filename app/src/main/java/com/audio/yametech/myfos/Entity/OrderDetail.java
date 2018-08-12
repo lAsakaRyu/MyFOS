@@ -68,4 +68,15 @@ public class OrderDetail {
     public void set_SubTotal(double _SubTotal) {
         this._SubTotal = _SubTotal;
     }
+
+    @Override
+    public String toString() {
+        return "OrderDetail{" +
+                "_ID='" + _ID + '\'' +
+                ", _MenuID='" + _MenuID + '\'' +
+                ", _OrderID='" + _OrderID + '\'' +
+                ", _Qty=" + _Qty +
+                ", _SubTotal=" + _SubTotal +
+                '}';
+    }
 }

@@ -16,14 +16,22 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextClock;
 import android.widget.TextView;
 
+import com.audio.yametech.myfos.Entity.ExtendedOrderDetails;
 import com.audio.yametech.myfos.Entity.InstanceDataHolder;
 import com.audio.yametech.myfos.Entity.Menus;
+import com.audio.yametech.myfos.Entity.OrderDetail;
+import com.audio.yametech.myfos.Entity.PlacedOrder;
 
-import org.w3c.dom.Text;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -42,6 +50,8 @@ public class MainActivity extends AppCompatActivity
     private String[] menuids;
     private TextView menuNameText;
     private TextView menuPriceText;
+    private ListView menuItemListView;
+
 
 
     @Override
@@ -69,6 +79,10 @@ public class MainActivity extends AppCompatActivity
         //textClock.setFormat24Hour("dd/MM/yyyy hh:mm:ss a");
         textClock.setFormat24Hour("dd/MM/yyyy hh:mm:ss a");
 
+        initializeTableFunction();
+    }
+
+    private void initializeTableFunction(){
         view = getLayoutInflater().inflate(R.layout.activity_table,null);
         orderEditText = view.findViewById(R.id.orderno);
         tableEditText = view.findViewById(R.id.tableno);
@@ -82,10 +96,21 @@ public class MainActivity extends AppCompatActivity
         quantitySpinner = view.findViewById(R.id.quantitySpinner);
         ArrayAdapter aa = new ArrayAdapter(this,android.R.layout.simple_spinner_dropdown_item,quantites);
         quantitySpinner.setAdapter(aa);
+        quantitySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                InstanceDataHolder.getInstance().set_SelectedQuantity(quantites[position]);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         menuIDSpinner = view.findViewById(R.id.menuIDSpinner);
-        //InstanceDataHolder.getInstance().get_DbHelper().addNewMenu(new com.audio.yametech.myfos.Entity.Menu("M0001","Apple Juice","Apple juice is a fruit juice made by the maceration and pressing of apples.",5.00,"Drink","Available","Yes"));
-        //InstanceDataHolder.getInstance().get_DbHelper().addNewMenu(new com.audio.yametech.myfos.Entity.Menu("M0002","Milo Ice","Iced Milo.",2.50,"Drink","Available","Yes"));
+        InstanceDataHolder.getInstance().get_DbHelper().addNewMenu(new Menus(InstanceDataHolder.getInstance().get_DbHelper().getNewID("menu","M"),"Apple Juice","Apple juice is a fruit juice made by the maceration and pressing of apples.",5.00,"Drink","Available","Yes"));
+        InstanceDataHolder.getInstance().get_DbHelper().addNewMenu(new Menus(InstanceDataHolder.getInstance().get_DbHelper().getNewID("menu","M"),"Milo Ice","Iced Milo.",2.50,"Drink","Available","Yes"));
         menuids = InstanceDataHolder.getInstance().get_DbHelper().getMenuIDs();
         ArrayAdapter aa2 = new ArrayAdapter(this,android.R.layout.simple_spinner_dropdown_item,menuids);
         menuIDSpinner.setAdapter(aa2);
@@ -93,6 +118,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Menus menuItem = InstanceDataHolder.getInstance().get_DbHelper().getMenu(menuids[position]);
+                InstanceDataHolder.getInstance().set_ActiveMenuItem(menuItem);
                 if(menuItem != null) {
                     menuNameText.setText(menuItem.get_Name());
                     menuPriceText.setText("RM " + String.format("%.2f", menuItem.get_Price()));
@@ -105,18 +131,42 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        initializeButton();
+        menuItemListView = view.findViewById(R.id.menuItemListView);
+
     }
 
-    private void initializeButton(){
-        button1 = (Button) findViewById(R.id.button);
+    public void addOrderButton(View event){
+        String placedOrderID = InstanceDataHolder.getInstance().get_DbHelper().getPlacedOrderID(InstanceDataHolder.getInstance().get_ActiveTableNo());
+        if( placedOrderID == null){
+            placedOrderID = InstanceDataHolder.getInstance().get_DbHelper().getNewID("placed_order","L");
+            String dateOrdered = new SimpleDateFormat("dd/MM/yyyy").format(new Date().getTime());
+            PlacedOrder placedOrder = new PlacedOrder(placedOrderID,dateOrdered,InstanceDataHolder.getInstance().get_ActiveTableNo(),"active");
+            InstanceDataHolder.getInstance().get_DbHelper().addNewPlacedOrder(placedOrder);
+        }
+        String menuID = InstanceDataHolder.getInstance().get_ActiveMenuItem().get_ID();
+        String quantity = InstanceDataHolder.getInstance().get_SelectedQuantity();
+        double subTotal = Double.valueOf(quantity)* InstanceDataHolder.getInstance().get_ActiveMenuItem().get_Price();
+        OrderDetail orderDetail = new OrderDetail(InstanceDataHolder.getInstance().get_DbHelper().getNewID("order_detail","O"), menuID,placedOrderID,Integer.valueOf(quantity),subTotal);
+        InstanceDataHolder.getInstance().get_DbHelper().addNewOrderDetail(orderDetail);
+        updateMenuListView(InstanceDataHolder.getInstance().get_ActiveTableNo());
+    }
 
+    public void updateMenuListView(String tableNumber){
+        List<ExtendedOrderDetails> menuItems = InstanceDataHolder.getInstance().get_DbHelper().getOrderDetailsByTable(tableNumber);
+        for(ExtendedOrderDetails o:menuItems ){
+            Log.i("MyFOS",o.toString());
+        }
+        MenuItemAdapter menuItemAdapter = new MenuItemAdapter(this, R.layout.menu_item_list, menuItems);
+        menuItemListView.setAdapter(menuItemAdapter);
     }
 
     public void tableButtonPressed(View event){
         String tableno = ((Button)findViewById(event.getId())).getText().toString();
+        InstanceDataHolder.getInstance().set_ActiveTableNo(tableno);
         cashierEditText.setText(InstanceDataHolder.getInstance().get_ActiveStaff().get_Name());
         tableEditText.setText(tableno);
+        updateMenuListView(tableno);
+
         dialog.show();
     }
     @Override
@@ -175,6 +225,4 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
-
 }

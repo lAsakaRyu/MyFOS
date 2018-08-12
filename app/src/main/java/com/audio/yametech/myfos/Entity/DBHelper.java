@@ -13,6 +13,7 @@ import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class DBHelper extends SQLiteOpenHelper {
 
@@ -159,6 +160,25 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_CHANGE_LOG);
         // Create tables again
         onCreate(db);
+    }
+
+    public String getNewID(String table, String prefix){
+        String newID = null;
+
+        String queryString = "SELECT MAX(id) FROM "+ table;
+        Cursor cursor = db.rawQuery(queryString,null);
+
+        if(cursor.moveToFirst()&&cursor.getString(0)!=null){
+            String id = (cursor.getString(0)).substring(1);
+            int num = Integer.parseInt(id);
+            num++;
+            newID = prefix+String.valueOf(num);
+        }
+        else{
+            newID = prefix+"1001";
+        }
+
+        return newID;
     }
 
     public void addNewStaff(Staff staff) {
@@ -339,16 +359,27 @@ public class DBHelper extends SQLiteOpenHelper {
         return result;
     }
 
+    public String getPlacedOrderID(String tableNumber){
+        String placedOrderID = null;
+
+        String queryString = "SELECT id FROM "+TABLE_PLACED_ORDER+" WHERE table_number = ? AND status = ?";
+        Cursor cursor = db.rawQuery(queryString,new String[]{tableNumber,"active"});
+
+        if(cursor.moveToFirst())
+            placedOrderID = cursor.getString(0);
+
+        return placedOrderID;
+    }
 
     public void addNewPlacedOrder(PlacedOrder placedOrder) {
         
 
         ContentValues values = new ContentValues();
 
+        values.put(KEY_ID, placedOrder.get_ID());
         values.put(KEY_ORDER_DATE, placedOrder.get_OrderDate());
         values.put(KEY_TABLE_NUMBER, placedOrder.get_TableNumber());
         values.put(KEY_STATUS, placedOrder.get_Status());
-
         db.insert(TABLE_PLACED_ORDER, null, values);
         
     }
@@ -384,7 +415,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 PlacedOrder placedOrder = new PlacedOrder(
                         cursor.getString(0),
                         cursor.getString(1),
-                        cursor.getInt(2),
+                        cursor.getString(2),
                         cursor.getString(3)
                 );
 
@@ -469,6 +500,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
         ContentValues values = new ContentValues();
 
+        values.put(KEY_ID,orderDetail.get_ID());
         values.put(KEY_MENU_ID, orderDetail.get_MenuID());
         values.put(KEY_ORDER_ID, orderDetail.get_OrderID());
         values.put(KEY_QTY, orderDetail.get_Qty());
@@ -521,6 +553,28 @@ public class DBHelper extends SQLiteOpenHelper {
         return orderDetailList;
     }
 
+    public List<ExtendedOrderDetails> getOrderDetailsByTable(String tableNumber){
+        List<ExtendedOrderDetails> orderDetails = new ArrayList<>();
+
+        String selectQuery = "SELECT O.*, M.name, M.price FROM order_detail O, placed_order P, menu M WHERE O.menu_id = M.id AND O.order_id = P.id AND P.status = ? AND P.table_number = ?";
+
+        Cursor cursor = db.rawQuery(selectQuery,new String[]{"active",tableNumber});
+        if (cursor.moveToFirst()) {
+            do {
+                ExtendedOrderDetails orderDetail = new ExtendedOrderDetails(
+                        cursor.getString(0),
+                        cursor.getString(1),
+                        cursor.getString(2),
+                        cursor.getInt(3),
+                        cursor.getDouble(4),
+                        cursor.getString(5),
+                        cursor.getDouble(6)
+                );
+                orderDetails.add(orderDetail);
+            } while (cursor.moveToNext());
+        }
+        return orderDetails;
+    }
 
     public void addNewMenu(Menus menus) {
         

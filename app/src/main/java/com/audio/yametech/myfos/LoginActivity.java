@@ -22,6 +22,8 @@ import android.widget.TextView;
 
 import com.audio.yametech.myfos.Entity.InstanceDataHolder;
 import com.audio.yametech.myfos.Entity.DBHelper;
+import com.audio.yametech.myfos.Entity.Security;
+import com.audio.yametech.myfos.Entity.Staff;
 import com.audio.yametech.myfos.Entity.Verification;
 
 /**
@@ -197,7 +199,7 @@ public class LoginActivity extends AppCompatActivity {
             } catch (InterruptedException e) {
                 return false;
             }
-            //InstanceDataHolder.getInstance().get_DbHelper().addNewSecurity(new Security("X0001","S0001","12341234"));
+            InstanceDataHolder.getInstance().get_DbHelper().addNewSecurity(new Security(InstanceDataHolder.getInstance().get_DbHelper().getNewID("security","X"),"S1001","12341234"));
             result = InstanceDataHolder.getInstance().get_DbHelper().verifyLoginCredential(username,password);
             return true;
         }
@@ -218,7 +220,7 @@ public class LoginActivity extends AppCompatActivity {
                         mPasswordView.requestFocus();
                         break;
                     default:
-                        //InstanceDataHolder.getInstance().get_DbHelper().addNewStaff(new Staff("S0001","Alex Chew","Manager","Male","22/09/1997","970922565225","0163844970","chewhw-wa15@student.tarc.edu.my","Working","12341234","08/08/2018","?"));
+                        InstanceDataHolder.getInstance().get_DbHelper().addNewStaff(new Staff(InstanceDataHolder.getInstance().get_DbHelper().getNewID("staff","S"),"Alex Chew","Manager","Male","22/09/1997","970922565225","0163844970","chewhw-wa15@student.tarc.edu.my","Working","12341234","08/08/2018","?"));
                         InstanceDataHolder.getInstance().set_ActiveStaff(InstanceDataHolder.getInstance().get_DbHelper().getStaffByID(result.get_StaffID()));
                         Intent intent = new Intent(getBaseContext(),MainActivity.class);
                         startActivity(intent);

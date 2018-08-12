@@ -132,7 +132,8 @@
         android:layout_marginTop="21dp"
         android:spinnerMode="dialog"
         app:layout_constraintLeft_toRightOf="@+id/textView7"
-        app:layout_constraintTop_toBottomOf="@+id/tableno" />
+        app:layout_constraintTop_toBottomOf="@+id/tableno"
+        android:layout_marginStart="24dp" />
 
     <Spinner
         android:id="@+id/menuIDSpinner"
@@ -142,7 +143,8 @@
         app:layout_constraintLeft_toRightOf="@+id/textView8"
         android:layout_marginLeft="32dp"
         android:layout_marginTop="21dp"
-        app:layout_constraintTop_toBottomOf="@+id/tableno" />
+        app:layout_constraintTop_toBottomOf="@+id/tableno"
+        android:layout_marginStart="32dp" />
 
     <TextView
         android:id="@+id/textView7"
@@ -153,7 +155,8 @@
         android:text="Quantity"
         android:textSize="18sp"
         app:layout_constraintLeft_toRightOf="@+id/menuIDSpinner"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintTop_toBottomOf="@+id/textView3"
+        android:layout_marginStart="62dp" />
 
     <TextView
         android:id="@+id/textView8"
@@ -164,7 +167,8 @@
         android:text="Menu ID"
         android:textSize="18sp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintTop_toBottomOf="@+id/textView3"
+        android:layout_marginStart="16dp" />
 
     <TextView
         android:id="@+id/textView9"
@@ -174,7 +178,8 @@
         android:layout_marginTop="8dp"
         android:text="Name"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView8" />
+        app:layout_constraintTop_toBottomOf="@+id/textView8"
+        android:layout_marginStart="16dp" />
 
     <TextView
         android:id="@+id/textView10"
@@ -184,7 +189,8 @@
         android:layout_marginTop="8dp"
         android:text="Price"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView9" />
+        app:layout_constraintTop_toBottomOf="@+id/textView9"
+        android:layout_marginStart="16dp" />
 
     <TextView
         android:id="@+id/menuNameText"
@@ -194,7 +200,8 @@
         app:layout_constraintLeft_toRightOf="@+id/textView9"
         android:layout_marginLeft="59dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/textView8" />
+        app:layout_constraintTop_toBottomOf="@+id/textView8"
+        android:layout_marginStart="59dp" />
 
     <TextView
         android:id="@+id/menuPriceText"
@@ -204,16 +211,82 @@
         android:layout_marginTop="8dp"
         android:text="TextView"
         app:layout_constraintLeft_toRightOf="@+id/textView10"
-        app:layout_constraintTop_toBottomOf="@+id/menuNameText" />
+        app:layout_constraintTop_toBottomOf="@+id/menuNameText"
+        android:layout_marginStart="64dp" />
 
     <Button
-        android:id="@+id/button34"
+        android:id="@+id/addOrderButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="200dp"
+        android:layout_marginStart="200dp"
         android:layout_marginTop="125dp"
+        android:onClick="addOrderButton"
         android:text="Add Order"
         app:layout_constraintLeft_toRightOf="@+id/menuPriceText"
         app:layout_constraintTop_toBottomOf="@+id/cashiername" />
+
+    <ListView
+        android:id="@+id/menuItemListView"
+        android:layout_width="532dp"
+        android:layout_height="203dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addOrderButton"
+        app:layout_constraintVertical_bias="1.0"
+        tools:layout_editor_absoluteY="252dp" />
+
+    <TextView
+        android:id="@+id/textView15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="4dp"
+        android:text="ID"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addOrderButton" />
+
+    <TextView
+        android:id="@+id/textView16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="63dp"
+        android:layout_marginTop="4dp"
+        android:text="Name"
+        app:layout_constraintLeft_toRightOf="@+id/textView15"
+        app:layout_constraintTop_toBottomOf="@+id/addOrderButton" />
+
+    <TextView
+        android:id="@+id/textView17"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="271dp"
+        android:layout_marginTop="4dp"
+        android:text="Price"
+        app:layout_constraintLeft_toRightOf="@+id/textView15"
+        app:layout_constraintTop_toBottomOf="@+id/addOrderButton" />
+
+    <TextView
+        android:id="@+id/textView18"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="52dp"
+        android:layout_marginTop="4dp"
+        android:text="Qty"
+        app:layout_constraintLeft_toRightOf="@+id/textView17"
+        app:layout_constraintTop_toBottomOf="@+id/addOrderButton" />
+
+    <TextView
+        android:id="@+id/textView19"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="57dp"
+        android:layout_marginTop="4dp"
+        android:text="SubTotal"
+        app:layout_constraintLeft_toRightOf="@+id/textView18"
+        app:layout_constraintTop_toBottomOf="@+id/addOrderButton" />
 
 </android.support.constraint.ConstraintLayout>
