@@ -101,4 +101,8 @@ public class Payment {
     public void set_PaymentDate(String _PaymentDate) {
         this._PaymentDate = _PaymentDate;
     }
+
+    public boolean verifyPaymentAmount(){
+        return this._AmountPaid-this._GrandTotal>=0;
+    }
 }

@@ -11,6 +11,7 @@ public class InstanceDataHolder {
     private Menus _ActiveMenuItem;
     private String _SelectedQuantity;
     private String _SelectedOrder;
+    private Payment _ActivePayment;
 
     private static final InstanceDataHolder ourInstance = new InstanceDataHolder();
 
@@ -67,5 +68,13 @@ public class InstanceDataHolder {
 
     public void set_SelectedOrder(String _SelectedOrder) {
         this._SelectedOrder = _SelectedOrder;
+    }
+
+    public Payment get_ActivePayment() {
+        return _ActivePayment;
+    }
+
+    public void set_ActivePayment(Payment _ActivePayment) {
+        this._ActivePayment = _ActivePayment;
     }
 }

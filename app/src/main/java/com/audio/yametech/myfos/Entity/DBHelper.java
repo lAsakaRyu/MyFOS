@@ -425,12 +425,33 @@ public class DBHelper extends SQLiteOpenHelper {
         return placedOrderList;
     }
 
+    public List<String> getAllActiveTableList() {
+        List<String> tableNumberList = new ArrayList<>();
+
+        String selectQuery = "SELECT table_number FROM " + TABLE_PLACED_ORDER + " WHERE status = ?";
+        Cursor cursor = db.rawQuery(selectQuery, new String[]{"active"});
+
+        if (cursor.moveToFirst()) {
+            do {
+                tableNumberList.add(cursor.getString(0));
+            } while (cursor.moveToNext());
+        }
+        return tableNumberList;
+    }
+
+    public void updatePaidOrder(String orderid){
+        ContentValues args = new ContentValues();
+        args.put(KEY_STATUS, "paid");
+        db.update(TABLE_PLACED_ORDER, args, KEY_ID + " = ?", new String[]{orderid});
+    }
+
 
     public void addNewPayment(Payment payment) {
         
 
         ContentValues values = new ContentValues();
 
+        values.put(KEY_ID, payment.get_ID());
         values.put(KEY_ORDER_ID, payment.get_OrderID());
         values.put(KEY_STAFF_ID, payment.get_StaffID());
         values.put(KEY_GRAND_TOTAL, payment.get_GrandTotal());
