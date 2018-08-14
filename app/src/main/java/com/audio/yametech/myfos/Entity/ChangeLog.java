@@ -18,11 +18,6 @@ public class ChangeLog {
         this._SecurityID = _SecurityID;
     }
 
-    public ChangeLog(String _DateChange, String _SecurityID) {
-        this._DateChange = _DateChange;
-        this._SecurityID = _SecurityID;
-    }
-
     public String get_ID() {
         return _ID;
     }

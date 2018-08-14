@@ -20,12 +20,6 @@ public class PlacedOrder {
         this._Status = _Status;
     }
 
-    public PlacedOrder(String _OrderDate, String _TableNumber, String _Status) {
-        this._OrderDate = _OrderDate;
-        this._TableNumber = _TableNumber;
-        this._Status = _Status;
-    }
-
     public String get_ID() {
         return _ID;
     }

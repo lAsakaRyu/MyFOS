@@ -11,31 +11,23 @@ public class Payment {
     private double _GrandTotal;
     private double _AmountPaid;
     private double _Change;
-    private String _PaymentTime;
     private String _PaymentDate;
+    private String _PaymentTime;
+
 
     public Payment() {
     }
 
-    public Payment(String _ID, String _OrderID, String _StaffID, double _GrandTotal, double _AmountPaid, double _Change, String _PaymentTime, String _PaymentDate) {
+    public Payment(String _ID, String _OrderID, String _StaffID, double _GrandTotal, double _AmountPaid, double _Change, String _PaymentDate, String _PaymentTime) {
         this._ID = _ID;
         this._OrderID = _OrderID;
         this._StaffID = _StaffID;
         this._GrandTotal = _GrandTotal;
         this._AmountPaid = _AmountPaid;
         this._Change = _Change;
-        this._PaymentTime = _PaymentTime;
         this._PaymentDate = _PaymentDate;
-    }
+        this._PaymentTime = _PaymentTime;
 
-    public Payment(String _OrderID, String _StaffID, double _GrandTotal, double _AmountPaid, double _Change, String _PaymentTime, String _PaymentDate) {
-        this._OrderID = _OrderID;
-        this._StaffID = _StaffID;
-        this._GrandTotal = _GrandTotal;
-        this._AmountPaid = _AmountPaid;
-        this._Change = _Change;
-        this._PaymentTime = _PaymentTime;
-        this._PaymentDate = _PaymentDate;
     }
 
     public String get_ID() {

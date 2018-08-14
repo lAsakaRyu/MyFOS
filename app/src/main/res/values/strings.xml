@@ -21,4 +21,8 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+    <string name="title_activity_recent">Recent Payment</string>
+    <string name="title_about_us">About Us</string>
+    <string name="title_change_password">Change Password</string>
+    <string name="title_menu_Maintenance">Menu Maintenance</string>
 </resources>

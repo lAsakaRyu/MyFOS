@@ -8,7 +8,6 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.audio.yametech.myfos.Entity.ExtendedOrderDetails;
-import com.audio.yametech.myfos.Entity.Menus;
 
 import java.util.List;
 
@@ -35,11 +34,11 @@ public class MenuItemAdapter extends ArrayAdapter<ExtendedOrderDetails> {
 
         TextView textViewID, textViewName, textViewPrice, textViewQuantity, textViewSubTotal;
 
-        textViewID = (TextView) convertView.findViewById(R.id.idTextView);
+        textViewID = (TextView) convertView.findViewById(R.id.menuDetailIDTextView);
         textViewName = (TextView) convertView.findViewById(R.id.nameTextView);
-        textViewPrice = (TextView) convertView.findViewById(R.id.priceTextView);
-        textViewQuantity = (TextView) convertView.findViewById(R.id.quantityTextView);
-        textViewSubTotal = (TextView) convertView.findViewById(R.id.subTotalTextView);
+        textViewPrice = (TextView) convertView.findViewById(R.id.menuDetailPriceTextView);
+        textViewQuantity = (TextView) convertView.findViewById(R.id.menuDetailTypeTextView);
+        textViewSubTotal = (TextView) convertView.findViewById(R.id.menuDetailStatusTextView);
 
 
         textViewID.setText(itemRecord.get_ID());

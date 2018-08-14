@@ -22,13 +22,6 @@ public class OrderDetail {
         this._SubTotal = _SubTotal;
     }
 
-    public OrderDetail(String _MenuID, String _OrderID, int _Qty, double _SubTotal) {
-        this._MenuID = _MenuID;
-        this._OrderID = _OrderID;
-        this._Qty = _Qty;
-        this._SubTotal = _SubTotal;
-    }
-
     public String get_ID() {
         return _ID;
     }

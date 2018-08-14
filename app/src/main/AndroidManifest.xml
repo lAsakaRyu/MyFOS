@@ -27,6 +27,21 @@
             android:name=".MainActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".RecentActivity"
+            android:label="@string/title_activity_recent"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".AboutActivity"
+            android:label="@string/title_about_us"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".PasswordActivity"
+            android:label="@string/title_change_password"
+            android:parentActivityName=".MainActivity" />
+        <activity android:name=".MenuMaintenanceActivity"
+            android:label="@string/title_menu_Maintenance"
+            android:parentActivityName=".MainActivity"/>
     </application>
 
 </manifest>

@@ -18,11 +18,6 @@ public class Security {
         this._Password = _Password;
     }
 
-    public Security(String _StaffID, String _Password) {
-        this._StaffID = _StaffID;
-        this._Password = _Password;
-    }
-
     public String get_ID() {
         return _ID;
     }

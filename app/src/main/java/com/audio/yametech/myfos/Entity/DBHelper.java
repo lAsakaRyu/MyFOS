@@ -300,14 +300,9 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     public boolean updateSecurityInfo(Security security) {
-        
-
         ContentValues args = new ContentValues();
-
-        args.put(KEY_STAFF_ID, security.get_StaffID());
         args.put(KEY_PASSWORD, security.get_Password());
-
-        return db.update(TABLE_SECURITY, args, KEY_ID + "=" + security.get_ID(), null) > 0;
+        return db.update(TABLE_SECURITY, args, KEY_ID + "= ?", new String[]{security.get_ID()}) > 0;
     }
 
     public boolean deleteSecurity(String delID){
@@ -342,7 +337,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     public Verification verifyLoginCredential(String username, String password){
-        Verification result = new Verification(0);
+        Verification result = new Verification();
 
         List<Security> securityList = getAllSecurityList();
         for(Security security : securityList){
@@ -489,7 +484,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public List<Payment> getAllPaymentList() {
         List<Payment> paymentList = new ArrayList<>();
 
-        String selectQuery = "SELECT  * FROM " + TABLE_PAYMENT;
+        String selectQuery = "SELECT  * FROM " + TABLE_PAYMENT + " ORDER BY "+KEY_PAYMENT_DATE + " , "+KEY_PAYMENT_TIME;
 
         
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -596,6 +591,30 @@ public class DBHelper extends SQLiteOpenHelper {
         return orderDetails;
     }
 
+    public List<ExtendedOrderDetails> getOrderDetailsByID(String id){
+        List<ExtendedOrderDetails> orderDetails = new ArrayList<>();
+
+        String selectQuery = "SELECT O.*, M.name, M.price FROM order_detail O, placed_order P, menu M WHERE O.menu_id = M.id AND O.order_id = P.id AND P.id = ?";
+
+        Cursor cursor = db.rawQuery(selectQuery,new String[]{id});
+        if (cursor.moveToFirst()) {
+            do {
+                ExtendedOrderDetails orderDetail = new ExtendedOrderDetails(
+                        cursor.getString(0),
+                        cursor.getString(1),
+                        cursor.getString(2),
+                        cursor.getInt(3),
+                        cursor.getDouble(4),
+                        cursor.getString(5),
+                        cursor.getDouble(6)
+                );
+                orderDetails.add(orderDetail);
+            } while (cursor.moveToNext());
+        }
+        return orderDetails;
+    }
+
+
     public void addNewMenu(Menus menus) {
         
 
@@ -624,12 +643,10 @@ public class DBHelper extends SQLiteOpenHelper {
         args.put(KEY_STATUS, menus.get_Status());
         args.put(KEY_STOCK_STATUS, menus.get_StockStatus());
 
-        return db.update(TABLE_MENU, args, KEY_ID + "=" + menus.get_ID(), null) > 0;
+        return db.update(TABLE_MENU, args, KEY_ID + "= ?", new String[]{menus.get_ID()}) > 0;
     }
 
     public boolean deleteMenu(String delID){
-        
-
         return db.delete(TABLE_MENU, KEY_ID + "= ?", new String[]{delID}) > 0;
     }
 

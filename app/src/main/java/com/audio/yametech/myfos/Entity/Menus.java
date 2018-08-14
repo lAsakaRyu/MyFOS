@@ -26,15 +26,6 @@ public class Menus {
         this._StockStatus = _StockStatus;
     }
 
-    public Menus(String _Name, String _Desc, double _Price, String _Type, String _Status, String _StockStatus) {
-        this._Name = _Name;
-        this._Desc = _Desc;
-        this._Price = _Price;
-        this._Type = _Type;
-        this._Status = _Status;
-        this._StockStatus = _StockStatus;
-    }
-
     public String get_ID() {
         return _ID;
     }
@@ -89,5 +80,18 @@ public class Menus {
 
     public void set_StockStatus(String _StockStatus) {
         this._StockStatus = _StockStatus;
+    }
+
+    @Override
+    public String toString() {
+        return "Menus{" +
+                "_ID='" + _ID + '\'' +
+                ", _Name='" + _Name + '\'' +
+                ", _Desc='" + _Desc + '\'' +
+                ", _Price=" + _Price +
+                ", _Type='" + _Type + '\'' +
+                ", _Status='" + _Status + '\'' +
+                ", _StockStatus='" + _StockStatus + '\'' +
+                '}';
     }
 }

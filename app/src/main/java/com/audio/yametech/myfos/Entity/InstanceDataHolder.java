@@ -77,4 +77,15 @@ public class InstanceDataHolder {
     public void set_ActivePayment(Payment _ActivePayment) {
         this._ActivePayment = _ActivePayment;
     }
+
+    public void reset(){
+        this._ActiveStaff = null;
+        this._ActiveTableNo = null;
+        this._ActiveMenuItem = null;
+        this._SelectedQuantity = null;
+        this._SelectedOrder = null;
+        this._ActivePayment = null;
+        _DbHelper.close();
+        _DbHelper = null;
+    }
 }

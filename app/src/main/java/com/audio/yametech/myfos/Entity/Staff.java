@@ -36,20 +36,6 @@ public class Staff {
         this._LeaveDate = _LeaveDate;
     }
 
-    public Staff(String _Name, String _Position, String _Gender, String _DateOfBirth, String _IC, String _PhoneNumber, String _Email, String _Status, String _DefaultPass, String _JoinDate, String _LeaveDate) {
-        this._Name = _Name;
-        this._Position = _Position;
-        this._Gender = _Gender;
-        this._DateOfBirth = _DateOfBirth;
-        this._IC = _IC;
-        this._PhoneNumber = _PhoneNumber;
-        this._Email = _Email;
-        this._Status = _Status;
-        this._DefaultPass = _DefaultPass;
-        this._JoinDate = _JoinDate;
-        this._LeaveDate = _LeaveDate;
-    }
-
     public String get_ID() {
         return _ID;
     }

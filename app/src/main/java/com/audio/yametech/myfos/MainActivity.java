@@ -2,6 +2,7 @@ package com.audio.yametech.myfos;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -11,7 +12,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -42,7 +42,6 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private TextView staffName;
     private TextClock textClock;
-
     private View viewTable;
     private View viewPayment;
     private EditText orderEditText;
@@ -68,9 +67,6 @@ public class MainActivity extends AppCompatActivity
     private ListView paymentItemListView;
     private List<Button> tableButtons;
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,16 +84,19 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        //staffName = (TextView) findViewById(R.id.staffName);
-        //staffName.setText(InstanceDataHolder.getInstance().get_ActiveStaff().get_Name());
         setTitle(getString(R.string.title_activity_main)+" "+InstanceDataHolder.getInstance().get_ActiveStaff().get_Name());
         textClock = (TextClock) findViewById(R.id.textClock);
         textClock.setFormat12Hour(null);
-        //textClock.setFormat24Hour("dd/MM/yyyy hh:mm:ss a");
         textClock.setFormat24Hour("dd/MM/yyyy hh:mm:ss a");
 
         initializeTableFunction();
         initializeTableButtons();
+
+        if(!InstanceDataHolder.getInstance().get_ActiveStaff().get_Position().equals("Manager")){
+            NavigationView nv = (NavigationView) findViewById(R.id.nav_view);
+            MenuItem menuItem = nv.getMenu().findItem(R.id.maintenanceGroupMenu);
+            menuItem.setVisible(false);
+        }
     }
 
     private void checkTableStatus(){
@@ -200,7 +199,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 view.setSelected(true);
-                InstanceDataHolder.getInstance().set_SelectedOrder(((TextView)view.findViewById(R.id.idTextView)).getText().toString());
+                InstanceDataHolder.getInstance().set_SelectedOrder(((TextView)view.findViewById(R.id.menuDetailIDTextView)).getText().toString());
             }
         });
 
@@ -381,27 +380,6 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -409,18 +387,28 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation viewTable item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        if (id == R.id.nav_recent) {
+            Intent intent = new Intent(this,RecentActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_report) {
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_change) {
+            Intent intent = new Intent(this,PasswordActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_maintmenu) {
+            Intent intent = new Intent(this,MenuMaintenanceActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_maintstaff) {
 
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        } else if (id == R.id.nav_about) {
+            Intent intent = new Intent(this,AboutActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_logout) {
+            finish();
+            InstanceDataHolder.getInstance().reset();
+            Intent intent = new Intent(this,LoginActivity.class);
+            startActivity(intent);
+            Toast.makeText(this,"Logout successfully.",Toast.LENGTH_SHORT).show();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -432,5 +420,6 @@ public class MainActivity extends AppCompatActivity
     protected void onResume() {
         super.onResume();
         checkTableStatus();
+
     }
 }

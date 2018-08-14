@@ -18,14 +18,14 @@
         android:layout_marginTop="8dp" />
 
     <TextView
-        android:id="@+id/nameTextView"
+        android:id="@+id/menuDetailNameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="32dp"
         android:layout_marginTop="8dp"
         android:text="Name"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toRightOf="@+id/menuDetailIDTextView"
-        android:layout_marginLeft="32dp" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/menuDetailPriceTextView"
@@ -35,25 +35,45 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="8dp"
         app:layout_constraintLeft_toRightOf="@+id/menuDetailIDTextView"
-        android:layout_marginLeft="240dp" />
+        android:layout_marginLeft="330dp" />
 
     <TextView
         android:id="@+id/menuDetailTypeTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Quantity"
-        app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="8dp"
-        app:layout_constraintLeft_toRightOf="@+id/menuDetailPriceTextView"
-        android:layout_marginLeft="32dp" />
+        android:text="Type"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/menuDetailIDTextView"
+        android:layout_marginLeft="390dp" />
 
     <TextView
         android:id="@+id/menuDetailStatusTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="64dp"
         android:layout_marginTop="8dp"
-        android:text="SubTotal"
-        app:layout_constraintLeft_toRightOf="@+id/menuDetailTypeTextView"
+        android:text="Status"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/menuDetailIDTextView"
+        android:layout_marginLeft="450dp" />
+
+    <TextView
+        android:id="@+id/menuDetailDescTextView"
+        android:layout_width="150dp"
+        android:layout_height="16dp"
+        android:layout_marginLeft="147dp"
+        android:layout_marginTop="8dp"
+        android:text="Desc"
+        app:layout_constraintLeft_toRightOf="@+id/menuDetailIDTextView"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/menuDetailStockTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Stock Status"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/menuDetailIDTextView"
+        android:layout_marginLeft="520dp" />
 </android.support.constraint.ConstraintLayout>
