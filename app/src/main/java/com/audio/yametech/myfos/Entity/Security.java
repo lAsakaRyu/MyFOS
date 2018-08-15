@@ -41,4 +41,13 @@ public class Security {
     public void set_Password(String _Password) {
         this._Password = _Password;
     }
+
+    @Override
+    public String toString() {
+        return "Security{" +
+                "_ID='" + _ID + '\'' +
+                ", _StaffID='" + _StaffID + '\'' +
+                ", _Password='" + _Password + '\'' +
+                '}';
+    }
 }

@@ -210,16 +210,12 @@ public class DBHelper extends SQLiteOpenHelper {
         args.put(KEY_NAME, staff.get_Name());
         args.put(KEY_POSITION, staff.get_Position());
         args.put(KEY_GENDER, staff.get_Gender());
-        args.put(KEY_DOB, staff.get_DateOfBirth());
-        args.put(KEY_IC, staff.get_IC());
         args.put(KEY_PHONE_NO, staff.get_PhoneNumber());
         args.put(KEY_EMAIL, staff.get_Email());
         args.put(KEY_STATUS, staff.get_Status());
-        args.put(KEY_DEFAULT_PASS, staff.get_DefaultPass());
-        args.put(KEY_JOIN_DATE, staff.get_JoinDate());
         args.put(KEY_LEAVE_DATE, staff.get_LeaveDate());
 
-        return db.update(TABLE_STAFF, args, KEY_ID + "=" + staff.get_ID(), null) > 0;
+        return db.update(TABLE_STAFF, args, KEY_ID + "= ?", new String[]{staff.get_ID()}) > 0;
     }
 
     public boolean deleteStaff(String delID){
@@ -311,6 +307,10 @@ public class DBHelper extends SQLiteOpenHelper {
         return db.delete(TABLE_SECURITY, KEY_ID + "= ?", new String[]{delID}) > 0;
     }
 
+    public boolean deleteSecuritybyStaffID(String delID){
+        return db.delete(TABLE_SECURITY, KEY_STAFF_ID + "= ?", new String[]{delID}) > 0;
+    }
+
     public List<Security> getAllSecurityList() {
         List<Security> securityList = new ArrayList<>();
 
@@ -336,12 +336,35 @@ public class DBHelper extends SQLiteOpenHelper {
         return securityList;
     }
 
+    public List<Security> getAllWorkingSecurityList() {
+        List<Security> securityList = new ArrayList<>();
+
+        String selectQuery = "SELECT  X.* FROM security X, staff S where S.id = X.staff_id AND S.status = ?";
+        Cursor cursor = db.rawQuery(selectQuery, new String[]{"Working"});
+
+        if (cursor.moveToFirst()) {
+            do {
+                Security security = new Security(
+                        cursor.getString(0),
+                        cursor.getString(1),
+                        cursor.getString(2)
+                );
+
+                // Adding contact to list
+                securityList.add(security);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+
+        return securityList;
+    }
+
     public Verification verifyLoginCredential(String username, String password){
         Verification result = new Verification();
 
-        List<Security> securityList = getAllSecurityList();
+        List<Security> securityList = getAllWorkingSecurityList();
         for(Security security : securityList){
-            Log.i("DEBUG",security.get_ID()+security.get_StaffID()+security.get_Password()+username+password);
+            Log.i("DEBUG",security.toString());
             if(username.equals(security.get_StaffID())){
                 result.set_VerificationStatus(1);
                 if(password.equals(security.get_Password())) {

@@ -3,6 +3,7 @@ package com.audio.yametech.myfos;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 
@@ -11,6 +12,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -19,6 +21,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.audio.yametech.myfos.Entity.InstanceDataHolder;
 import com.audio.yametech.myfos.Entity.DBHelper;
@@ -176,6 +179,10 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
+    protected Activity getThisActivity(){
+        return this;
+    }
+
     /**
      * Represents an asynchronous login/registration task used to authenticate
      * the user.
@@ -202,6 +209,11 @@ public class LoginActivity extends AppCompatActivity {
                 return false;
             }
             List<Security> securityList = InstanceDataHolder.getInstance().get_DbHelper().getAllSecurityList();
+            Log.i("MyFOS",securityList.toString());
+            List<Staff> staffList = InstanceDataHolder.getInstance().get_DbHelper().getAllStaffList();
+            if(staffList.isEmpty()) {
+                InstanceDataHolder.getInstance().get_DbHelper().addNewStaff(new Staff(InstanceDataHolder.getInstance().get_DbHelper().getNewID("staff", "S"), "Alex Chew", "Manager", "Male", "22/09/1997", "970922565225", "0163844970", "chewhw-wa15@student.tarc.edu.my", "Working", "970922", "08/08/2018", "?"));
+            }
             if(securityList.isEmpty()) {
                 InstanceDataHolder.getInstance().get_DbHelper().addNewSecurity(new Security(InstanceDataHolder.getInstance().get_DbHelper().getNewID("security","X"),"S1001","12341234"));
             }
@@ -223,14 +235,20 @@ public class LoginActivity extends AppCompatActivity {
                         mPasswordView.requestFocus();
                         break;
                     default:
-                        List<Staff> staffList = InstanceDataHolder.getInstance().get_DbHelper().getAllStaffList();
-                        if(staffList.isEmpty()) {
-                            InstanceDataHolder.getInstance().get_DbHelper().addNewStaff(new Staff(InstanceDataHolder.getInstance().get_DbHelper().getNewID("staff", "S"), "Alex Chew", "Manager", "Male", "22/09/1997", "970922565225", "0163844970", "chewhw-wa15@student.tarc.edu.my", "Working", "12341234", "08/08/2018", "?"));
+                        Staff loginStaff = InstanceDataHolder.getInstance().get_DbHelper().getStaffByID(result.get_StaffID());
+                        InstanceDataHolder.getInstance().set_ActiveStaff(loginStaff);
+                        Intent intent;
+                        if(password.equals(loginStaff.get_DefaultPass())) {
+                            Toast.makeText(getThisActivity(), "First time login. Please change your password!", Toast.LENGTH_LONG).show();
+                            intent = new Intent(getBaseContext(), PasswordActivity.class);
+                            InstanceDataHolder.getInstance().set_FirstTimeLogin(true);
+                            startActivity(intent);
                         }
-                        InstanceDataHolder.getInstance().set_ActiveStaff(InstanceDataHolder.getInstance().get_DbHelper().getStaffByID(result.get_StaffID()));
-                        Intent intent = new Intent(getBaseContext(),MainActivity.class);
-                        startActivity(intent);
-                        finish();
+                        else {
+                            intent = new Intent(getBaseContext(), MainActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
                 }
             }
             showProgress(false);

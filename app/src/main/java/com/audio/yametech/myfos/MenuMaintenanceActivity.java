@@ -2,6 +2,7 @@ package com.audio.yametech.myfos;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -63,7 +64,7 @@ public class MenuMaintenanceActivity extends AppCompatActivity {
         ArrayAdapter aa = new ArrayAdapter(this,android.R.layout.simple_spinner_dropdown_item,status);
         statusSpinner.setAdapter(aa);
         stockCheckBox = view.findViewById(R.id.stockCheckBox);
-        confirmUpdateButton = view.findViewById(R.id.confirmUpdateButton);
+        confirmUpdateButton = view.findViewById(R.id.confirmUpdateStaffButton);
         confirmUpdateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -111,7 +112,6 @@ public class MenuMaintenanceActivity extends AppCompatActivity {
 
     public void updateMenuButtonPressed(View event){
         if(selectedMenu!=null) {
-            updateIDEditText.setEnabled(false);
             updateIDEditText.setText(selectedMenu.get_ID());
             updateNameEditText.setText(selectedMenu.get_Name());
             updateDescEditText.setText(selectedMenu.get_Desc());
@@ -135,7 +135,6 @@ public class MenuMaintenanceActivity extends AppCompatActivity {
     }
 
     public void addMenuButtonPressed(View event){
-            updateIDEditText.setEnabled(false);
             updateIDEditText.setText(InstanceDataHolder.getInstance().get_DbHelper().getNewID("menu","M"));
             updateNameEditText.setText("");
             updateDescEditText.setText("");

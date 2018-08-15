@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:focusableInTouchMode="true">
 
     <RadioGroup
         android:id="@+id/genderRadioGroup"
@@ -41,13 +42,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="140dp"
+        android:layout_marginStart="140dp"
         android:layout_marginTop="16dp"
+        android:editable="false"
         android:ems="10"
+        android:enabled="false"
         android:hint="ID"
+        android:imeOptions="flagNoEnterAction"
         android:inputType="textPersonName"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginStart="140dp" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/updateNameEditText"
@@ -88,7 +92,7 @@
         android:id="@+id/textView58"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="23dp"
+        android:layout_marginTop="30dp"
         android:text="Position"
         app:layout_constraintTop_toBottomOf="@+id/textView57"
         app:layout_constraintRight_toLeftOf="@+id/positionSpinner"
@@ -124,7 +128,10 @@
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginStart="140dp"
         android:layout_marginTop="1dp"
-        app:layout_constraintTop_toBottomOf="@+id/updateEmailEditText" />
+        app:layout_constraintTop_toBottomOf="@+id/updateEmailEditText"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/textView62"
@@ -133,40 +140,38 @@
         android:text="Status"
         app:layout_constraintRight_toLeftOf="@+id/statusSpinner"
         android:layout_marginRight="16dp"
-        android:layout_marginTop="23dp"
+        android:layout_marginTop="30dp"
         app:layout_constraintTop_toBottomOf="@+id/textView60"
         android:layout_marginEnd="16dp" />
 
     <Button
-        android:id="@+id/confirmUpdateButton"
+        android:id="@+id/confirmUpdateStaffButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Update"
         app:layout_constraintLeft_toRightOf="@+id/updateEmailEditText"
-        android:layout_marginLeft="152dp"
+        android:layout_marginLeft="58dp"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/updateDOBEditText"
-        app:layout_constraintVertical_bias="0.31" />
+        app:layout_constraintTop_toBottomOf="@+id/updateICEditText"
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/button34"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginLeft="12dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="12dp"
+        android:onClick="cancelUpdateStaffButtonPressed"
         android:text="Cancel"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toRightOf="@+id/confirmUpdateButton"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/updateDOBEditText"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintVertical_bias="0.31" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toRightOf="@+id/resetFormButton"
+        app:layout_constraintRight_toRightOf="parent" />
 
     <Spinner
         android:id="@+id/positionSpinner"
@@ -181,23 +186,25 @@
         android:id="@+id/updateContactEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="phone"
-        android:layout_marginTop="38dp"
-        app:layout_constraintTop_toBottomOf="@+id/updateNameEditText"
         android:layout_marginLeft="140dp"
-        app:layout_constraintLeft_toLeftOf="parent" />
+        android:layout_marginTop="45dp"
+        android:ems="10"
+        android:hint="e.g. 0163844970"
+        android:inputType="phone"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/updateNameEditText" />
 
     <EditText
         android:id="@+id/updateEmailEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textEmailAddress"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/updateContactEditText"
         android:layout_marginLeft="140dp"
-        app:layout_constraintLeft_toLeftOf="parent" />
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="Email Address"
+        android:inputType="textEmailAddress"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/updateContactEditText" />
 
     <TextView
         android:id="@+id/textView68"
@@ -233,21 +240,39 @@
         android:id="@+id/updateICEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="number"
+        android:layout_marginLeft="120dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/genderRadioGroup"
+        android:ems="10"
+        android:hint="e.g. 970922143443"
+        android:imeOptions="actionDone"
+        android:inputType="number"
         app:layout_constraintLeft_toRightOf="@+id/updateNameEditText"
-        android:layout_marginLeft="120dp" />
+        app:layout_constraintTop_toBottomOf="@+id/genderRadioGroup" />
 
     <EditText
         android:id="@+id/updateDOBEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="date"
-        tools:layout_editor_absoluteX="480dp"
+        android:layout_marginLeft="120dp"
         android:layout_marginTop="8dp"
+        android:editable="false"
+        android:ems="10"
+        android:enabled="false"
+        android:hint="Waiting for IC . . ."
+        android:imeOptions="actionDone"
+        android:inputType="date"
+        app:layout_constraintLeft_toRightOf="@+id/updateContactEditText"
         app:layout_constraintTop_toBottomOf="@+id/updateICEditText" />
+
+    <Button
+        android:id="@+id/resetFormButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="12dp"
+        android:onClick="resetFieldButtonPressed"
+        android:text="Reset"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/confirmUpdateStaffButton" />
 
 </android.support.constraint.ConstraintLayout>

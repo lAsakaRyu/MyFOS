@@ -56,4 +56,24 @@
         android:text="Status"
         app:layout_constraintLeft_toRightOf="@+id/updateStaffIDTextView"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/updateStaffJoinTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="390dp"
+        android:layout_marginTop="8dp"
+        android:text="Date Join"
+        app:layout_constraintLeft_toRightOf="@+id/updateStaffIDTextView"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/updateStaffLeaveTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="8dp"
+        android:text="Date Leave"
+        app:layout_constraintLeft_toRightOf="@+id/updateStaffJoinTextView"
+        app:layout_constraintTop_toTopOf="parent" />
 </android.support.constraint.ConstraintLayout>

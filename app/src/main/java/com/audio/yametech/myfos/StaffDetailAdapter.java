@@ -33,13 +33,15 @@ public class StaffDetailAdapter extends ArrayAdapter<Staff> {
                             false);
         }
 
-        TextView updateStaffIDTextView, updateStaffNameTextView, updateStaffGenderTextView, updateStaffPositionTextView, updateStaffStatusTextView;
+        TextView updateStaffIDTextView, updateStaffNameTextView, updateStaffGenderTextView, updateStaffPositionTextView, updateStaffStatusTextView, updateStaffJoinTextView, updateStaffLeaveTextView;
 
         updateStaffIDTextView = (TextView) convertView.findViewById(R.id.updateStaffIDTextView);
         updateStaffNameTextView = (TextView) convertView.findViewById(R.id.updateStaffNameTextView);
         updateStaffGenderTextView = (TextView) convertView.findViewById(R.id.updateStaffGenderTextView);
         updateStaffPositionTextView = (TextView) convertView.findViewById(R.id.updateStaffPositionTextView);
         updateStaffStatusTextView = (TextView) convertView.findViewById(R.id.updateStaffStatusTextView);
+        updateStaffJoinTextView = (TextView) convertView.findViewById(R.id.updateStaffJoinTextView);
+        updateStaffLeaveTextView = (TextView) convertView.findViewById(R.id.updateStaffLeaveTextView);
 
 
         updateStaffIDTextView.setText(itemRecord.get_ID());
@@ -47,6 +49,8 @@ public class StaffDetailAdapter extends ArrayAdapter<Staff> {
         updateStaffGenderTextView.setText(itemRecord.get_Gender());
         updateStaffPositionTextView.setText(itemRecord.get_Position());
         updateStaffStatusTextView.setText(itemRecord.get_Status());
+        updateStaffJoinTextView.setText(itemRecord.get_JoinDate());
+        updateStaffLeaveTextView.setText(itemRecord.get_LeaveDate());
 
         return convertView;
     }

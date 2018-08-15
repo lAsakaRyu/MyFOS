@@ -12,6 +12,7 @@ public class InstanceDataHolder {
     private String _SelectedQuantity;
     private String _SelectedOrder;
     private Payment _ActivePayment;
+    private boolean _FirstTimeLogin = false;
 
     private static final InstanceDataHolder ourInstance = new InstanceDataHolder();
 
@@ -78,6 +79,14 @@ public class InstanceDataHolder {
         this._ActivePayment = _ActivePayment;
     }
 
+    public boolean is_FirstTimeLogin() {
+        return _FirstTimeLogin;
+    }
+
+    public void set_FirstTimeLogin(boolean _FirstTimeLogin) {
+        this._FirstTimeLogin = _FirstTimeLogin;
+    }
+
     public void reset(){
         this._ActiveStaff = null;
         this._ActiveTableNo = null;
@@ -87,5 +96,6 @@ public class InstanceDataHolder {
         this._ActivePayment = null;
         _DbHelper.close();
         _DbHelper = null;
+        _FirstTimeLogin = false;
     }
 }

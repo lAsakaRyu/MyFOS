@@ -89,34 +89,32 @@
         android:id="@+id/updateMenuButton"
         android:layout_width="200dp"
         android:layout_height="75dp"
-        android:layout_marginBottom="8dp"
         android:layout_marginRight="16dp"
         android:onClick="updateMenuButtonPressed"
         android:text="Update Menu"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/addMenuButton" />
 
     <Button
         android:id="@+id/addMenuButton"
         android:layout_width="200dp"
         android:layout_height="75dp"
-        android:layout_marginBottom="8dp"
         android:layout_marginRight="16dp"
         android:onClick="addMenuButtonPressed"
         android:text="Add Menu"
-        app:layout_constraintBottom_toTopOf="@+id/updateMenuButton"
         app:layout_constraintRight_toRightOf="parent"
-        tools:layout_editor_absoluteX="888dp"
-        tools:layout_editor_absoluteY="354dp" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="297dp" />
 
     <Button
         android:id="@+id/deleteMenuButton"
         android:layout_width="85dp"
         android:layout_height="158dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginRight="7dp"
         android:onClick="deleteMenuButtonPressed"
         android:text="Delete Menu"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/updateMenuButton" />
+        app:layout_constraintRight_toLeftOf="@+id/updateMenuButton"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="297dp" />
 </android.support.constraint.ConstraintLayout>

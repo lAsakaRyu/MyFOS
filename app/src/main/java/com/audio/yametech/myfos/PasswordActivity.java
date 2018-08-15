@@ -1,5 +1,6 @@
 package com.audio.yametech.myfos;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -27,6 +28,11 @@ public class PasswordActivity extends AppCompatActivity {
         oldPassEditText = (EditText) findViewById(R.id.oldPassEditText);
         newPassEditText = (EditText) findViewById(R.id.newPassEditText);
         conPassEditText = (EditText) findViewById(R.id.conPassEditText);
+        if(InstanceDataHolder.getInstance().is_FirstTimeLogin()){
+            oldPassEditText.setText(InstanceDataHolder.getInstance().get_ActiveStaff().get_DefaultPass());
+            oldPassEditText.setEnabled(false);
+            newPassEditText.requestFocus();
+        }
     }
 
     public void changePasswordButtonPressed(View event){
@@ -48,7 +54,14 @@ public class PasswordActivity extends AppCompatActivity {
                 String changeLogID = InstanceDataHolder.getInstance().get_DbHelper().getNewID("change_log","C");
                 ChangeLog changeLog = new ChangeLog(changeLogID,new SimpleDateFormat("dd/MM/yyyy").format(new Date().getTime()),verification.get_ID());
                 InstanceDataHolder.getInstance().get_DbHelper().addNewChangeLog(changeLog);
-                super.onBackPressed();
+                if(InstanceDataHolder.getInstance().is_FirstTimeLogin()){
+                    Intent intent = new Intent(this,MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+                else{
+                    super.onBackPressed();
+                }
                 Toast.makeText(this,"Password successfully updated.",Toast.LENGTH_SHORT).show();
             }
             else{
