@@ -172,8 +172,11 @@ public class MainActivity extends AppCompatActivity
         });
 
         menuIDSpinner = viewTable.findViewById(R.id.menuIDSpinner);
-        //InstanceDataHolder.getInstance().get_DbHelper().addNewMenu(new Menus(InstanceDataHolder.getInstance().get_DbHelper().getNewID("menu","M"),"Apple Juice","Apple juice is a fruit juice made by the maceration and pressing of apples.",5.00,"Drink","Available","Yes"));
-        //InstanceDataHolder.getInstance().get_DbHelper().addNewMenu(new Menus(InstanceDataHolder.getInstance().get_DbHelper().getNewID("menu","M"),"Milo Ice","Iced Milo.",2.50,"Drink","Available","Yes"));
+        List<Menus> menuList = InstanceDataHolder.getInstance().get_DbHelper().getAllMenuList();
+        if(menuList.isEmpty()) {
+            InstanceDataHolder.getInstance().get_DbHelper().addNewMenu(new Menus(InstanceDataHolder.getInstance().get_DbHelper().getNewID("menu","M"),"Apple Juice","Apple juice is a fruit juice made by the maceration and pressing of apples.",5.00,"Drink","Available","Yes"));
+            InstanceDataHolder.getInstance().get_DbHelper().addNewMenu(new Menus(InstanceDataHolder.getInstance().get_DbHelper().getNewID("menu","M"),"Milo Ice","Iced Milo.",2.50,"Drink","Available","Yes"));
+        }
         menuids = InstanceDataHolder.getInstance().get_DbHelper().getMenuIDs();
         ArrayAdapter aa2 = new ArrayAdapter(this,android.R.layout.simple_spinner_dropdown_item,menuids);
         menuIDSpinner.setAdapter(aa2);
@@ -399,7 +402,8 @@ public class MainActivity extends AppCompatActivity
             Intent intent = new Intent(this,MenuMaintenanceActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_maintstaff) {
-
+            Intent intent = new Intent(this,StaffMaintenanceActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_about) {
             Intent intent = new Intent(this,AboutActivity.class);
             startActivity(intent);

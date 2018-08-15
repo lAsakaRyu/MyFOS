@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -38,7 +37,6 @@ public class MenuMaintenanceActivity extends AppCompatActivity {
     private String[] status = {"Available","Not Available"};
     private Button confirmUpdateButton;
     private boolean update;
-    private String newID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +58,7 @@ public class MenuMaintenanceActivity extends AppCompatActivity {
         updateNameEditText = view.findViewById(R.id.updateNameEditText);
         updateDescEditText = view.findViewById(R.id.updateDescEditText);
         updatePriceEditText = view.findViewById(R.id.updatePriceEditText);
-        typeRadioGroup = view.findViewById(R.id.typeRadioGroup);
+        typeRadioGroup = view.findViewById(R.id.genderRadioGroup);
         statusSpinner = view.findViewById(R.id.statusSpinner);
         ArrayAdapter aa = new ArrayAdapter(this,android.R.layout.simple_spinner_dropdown_item,status);
         statusSpinner.setAdapter(aa);

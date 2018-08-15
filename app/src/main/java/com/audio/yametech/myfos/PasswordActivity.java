@@ -6,9 +6,13 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.audio.yametech.myfos.Entity.ChangeLog;
 import com.audio.yametech.myfos.Entity.InstanceDataHolder;
 import com.audio.yametech.myfos.Entity.Security;
 import com.audio.yametech.myfos.Entity.Verification;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class PasswordActivity extends AppCompatActivity {
     private EditText oldPassEditText;
@@ -41,6 +45,9 @@ public class PasswordActivity extends AppCompatActivity {
             }
             else if(newPass.equals(conPassEditText.getText().toString())){
                 InstanceDataHolder.getInstance().get_DbHelper().updateSecurityInfo(new Security(verification.get_ID(),username,newPass));
+                String changeLogID = InstanceDataHolder.getInstance().get_DbHelper().getNewID("change_log","C");
+                ChangeLog changeLog = new ChangeLog(changeLogID,new SimpleDateFormat("dd/MM/yyyy").format(new Date().getTime()),verification.get_ID());
+                InstanceDataHolder.getInstance().get_DbHelper().addNewChangeLog(changeLog);
                 super.onBackPressed();
                 Toast.makeText(this,"Password successfully updated.",Toast.LENGTH_SHORT).show();
             }
