@@ -1,4 +1,4 @@
-package com.audio.yametech.myfos;
+package com.audio.yametech.myfos.Activity;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -6,12 +6,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.audio.yametech.myfos.Adapter.MenuItemAdapter;
+import com.audio.yametech.myfos.Adapter.RecentPaymentAdapter;
 import com.audio.yametech.myfos.Entity.ExtendedOrderDetails;
 import com.audio.yametech.myfos.Entity.InstanceDataHolder;
 import com.audio.yametech.myfos.Entity.Payment;
+import com.audio.yametech.myfos.R;
 
 import java.util.List;
 

@@ -26,4 +26,9 @@
     <string name="title_change_password">Change Password</string>
     <string name="title_menu_Maintenance">Menu Maintenance</string>
     <string name="title_staff_maintenance">Staff Maintenance</string>
+
+    <string-array name="reportList">
+        <item>Choose a report</item>
+        <item>Staff Changelog</item>
+    </string-array>
 </resources>

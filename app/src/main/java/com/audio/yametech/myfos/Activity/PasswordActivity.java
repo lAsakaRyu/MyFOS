@@ -1,4 +1,4 @@
-package com.audio.yametech.myfos;
+package com.audio.yametech.myfos.Activity;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +11,7 @@ import com.audio.yametech.myfos.Entity.ChangeLog;
 import com.audio.yametech.myfos.Entity.InstanceDataHolder;
 import com.audio.yametech.myfos.Entity.Security;
 import com.audio.yametech.myfos.Entity.Verification;
+import com.audio.yametech.myfos.R;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

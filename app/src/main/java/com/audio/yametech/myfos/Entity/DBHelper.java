@@ -12,7 +12,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class DBHelper extends SQLiteOpenHelper {
 
@@ -277,6 +279,31 @@ public class DBHelper extends SQLiteOpenHelper {
             );
         }
         
+        cursor.close();
+        return staff;
+    }
+
+    public Staff getStaffBySecurityID(String ID){
+        Staff staff = null;
+
+        Cursor cursor = db.rawQuery("SELECT S.* FROM staff S, Security X WHERE X.staff_id = S.id AND X.ID = ?", new String[]{ID});
+        if (cursor.moveToFirst()){
+            staff = new Staff(
+                    cursor.getString(0),
+                    cursor.getString(1),
+                    cursor.getString(2),
+                    cursor.getString(3),
+                    cursor.getString(4),
+                    cursor.getString(5),
+                    cursor.getString(6),
+                    cursor.getString(7),
+                    cursor.getString(8),
+                    cursor.getString(9),
+                    cursor.getString(10),
+                    cursor.getString(11)
+            );
+        }
+
         cursor.close();
         return staff;
     }
@@ -737,6 +764,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
         ContentValues values = new ContentValues();
 
+        values.put(KEY_ID, changeLog.get_ID());
         values.put(KEY_DATE_CHANGE, changeLog.get_DateChange());
         values.put(KEY_SECURITY_ID, changeLog.get_SecurityID());
 
@@ -764,7 +792,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public List<ChangeLog> getAllChangeLogList() {
         List<ChangeLog> changeLogList = new ArrayList<>();
 
-        String selectQuery = "SELECT  * FROM " + TABLE_CHANGE_LOG;
+        String selectQuery = "SELECT  * FROM " + TABLE_CHANGE_LOG +" ORDER BY id DESC";
 
         
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -782,5 +810,16 @@ public class DBHelper extends SQLiteOpenHelper {
             } while (cursor.moveToNext());
         }
         return changeLogList;
+    }
+
+    public List<ExtendedChangeLog> getExtendedChangeLog(){
+        List<ExtendedChangeLog> extendedChangeLogs = new ArrayList<>();
+
+        List<ChangeLog> changeLogs = getAllChangeLogList();
+        for(ChangeLog c : changeLogs){
+            Staff staff = getStaffBySecurityID(c.get_SecurityID());
+            extendedChangeLogs.add(new ExtendedChangeLog(c.get_ID(),c.get_DateChange(),c.get_SecurityID(),staff));
+        }
+        return extendedChangeLogs;
     }
 }

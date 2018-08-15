@@ -1,4 +1,4 @@
-package com.audio.yametech.myfos;
+package com.audio.yametech.myfos.Adapter;
 
 import android.app.Activity;
 import android.view.LayoutInflater;
@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.audio.yametech.myfos.Entity.InstanceDataHolder;
 import com.audio.yametech.myfos.Entity.Payment;
+import com.audio.yametech.myfos.R;
 
 import java.util.List;
 

@@ -1,7 +1,9 @@
-package com.audio.yametech.myfos;
+package com.audio.yametech.myfos.Activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.audio.yametech.myfos.R;
 
 public class AboutActivity extends AppCompatActivity {
 

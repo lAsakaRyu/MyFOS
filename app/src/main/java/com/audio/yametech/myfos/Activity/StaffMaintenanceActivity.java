@@ -1,8 +1,7 @@
-package com.audio.yametech.myfos;
+package com.audio.yametech.myfos.Activity;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -18,9 +17,11 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.audio.yametech.myfos.Adapter.StaffDetailAdapter;
 import com.audio.yametech.myfos.Entity.InstanceDataHolder;
 import com.audio.yametech.myfos.Entity.Security;
 import com.audio.yametech.myfos.Entity.Staff;
+import com.audio.yametech.myfos.R;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

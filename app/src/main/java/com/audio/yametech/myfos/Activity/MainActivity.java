@@ -1,4 +1,4 @@
-package com.audio.yametech.myfos;
+package com.audio.yametech.myfos.Activity;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -8,6 +8,7 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
@@ -24,6 +25,9 @@ import android.widget.TextClock;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.audio.yametech.myfos.Adapter.MenuItemAdapter;
+import com.audio.yametech.myfos.Adapter.ReportDetailAdapter;
+import com.audio.yametech.myfos.Entity.ExtendedChangeLog;
 import com.audio.yametech.myfos.Entity.ExtendedOrderDetails;
 import com.audio.yametech.myfos.Entity.InstanceDataHolder;
 import com.audio.yametech.myfos.Entity.Menus;
@@ -31,6 +35,7 @@ import com.audio.yametech.myfos.Entity.OrderDetail;
 import com.audio.yametech.myfos.Entity.Payment;
 import com.audio.yametech.myfos.Entity.PlacedOrder;
 import com.audio.yametech.myfos.Entity.Staff;
+import com.audio.yametech.myfos.R;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -53,6 +58,7 @@ public class MainActivity extends AppCompatActivity
     private EditText paymentChangeEditText;
     private Dialog dialogTable;
     private Dialog dialogPayment;
+    private Dialog dialogReport;
     private Spinner menuIDSpinner;
     private Spinner quantitySpinner;
     private String[] quantites = {"1","2","3","4","5","6","7","8","9"};
@@ -88,6 +94,8 @@ public class MainActivity extends AppCompatActivity
         textClock = (TextClock) findViewById(R.id.textClock);
         textClock.setFormat12Hour(null);
         textClock.setFormat24Hour("dd/MM/yyyy hh:mm:ss a");
+
+        dialogReport = new Dialog(this,R.style.Theme_AppCompat_Dialog);
 
         initializeTableFunction();
         initializeTableButtons();
@@ -394,7 +402,41 @@ public class MainActivity extends AppCompatActivity
             Intent intent = new Intent(this,RecentActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_report) {
-
+            AlertDialog.Builder mBuilder = new AlertDialog.Builder(this);
+            View view = getLayoutInflater().inflate(R.layout.dialog_report,null);
+            mBuilder.setTitle("Select Report Type");
+            final Spinner spinner = view.findViewById(R.id.reportSpinner);
+            ArrayAdapter aa = new ArrayAdapter(this,android.R.layout.simple_spinner_dropdown_item,getResources().getStringArray(R.array.reportList));
+            spinner.setAdapter(aa);
+            mBuilder.setPositiveButton("Select", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    switch(spinner.getSelectedItemPosition()){
+                        case 0:
+                            Toast.makeText(MainActivity.this,"Please select a report.",Toast.LENGTH_SHORT).show();
+                            break;
+                        case 1:
+                            Dialog dialogChange = new Dialog(MainActivity.this,R.style.Theme_AppCompat_Dialog);
+                            View cview = getLayoutInflater().inflate(R.layout.dialog_report_change_log,null);
+                            ListView listView = cview.findViewById(R.id.reportChangeListView);
+                            List<ExtendedChangeLog> extendedChangeLogs = InstanceDataHolder.getInstance().get_DbHelper().getExtendedChangeLog();
+                            ReportDetailAdapter reportDetailAdapter = new ReportDetailAdapter(MainActivity.this,R.layout.report_change_log,extendedChangeLogs);
+                            listView.setAdapter(reportDetailAdapter);
+                            dialogChange.setContentView(cview);
+                            dialogChange.show();
+                            break;
+                    }
+                }
+            });
+            mBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
+            mBuilder.setView(view);
+            AlertDialog dialog = mBuilder.create();
+            dialog.show();
         } else if (id == R.id.nav_change) {
             Intent intent = new Intent(this,PasswordActivity.class);
             startActivity(intent);

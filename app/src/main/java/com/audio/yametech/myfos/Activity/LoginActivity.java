@@ -1,4 +1,4 @@
-package com.audio.yametech.myfos;
+package com.audio.yametech.myfos.Activity;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -28,6 +28,7 @@ import com.audio.yametech.myfos.Entity.DBHelper;
 import com.audio.yametech.myfos.Entity.Security;
 import com.audio.yametech.myfos.Entity.Staff;
 import com.audio.yametech.myfos.Entity.Verification;
+import com.audio.yametech.myfos.R;
 
 import java.util.List;
 
