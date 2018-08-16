@@ -116,8 +116,8 @@ public class DBHelper extends SQLiteOpenHelper {
                 + KEY_GRAND_TOTAL + " DOUBLE, "
                 + KEY_AMOUNT_PAID + " DOUBLE, "
                 + KEY_CHANGE + " DOUBLE, "
-                + KEY_PAYMENT_TIME + " TEXT, "
-                + KEY_PAYMENT_DATE + " TEXT " + ")";
+                + KEY_PAYMENT_DATE + " TEXT, "
+                + KEY_PAYMENT_TIME + " TEXT " + ")";
 
         db.execSQL(CREATE_PAYMENT_TABLE);
 
@@ -502,8 +502,8 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put(KEY_GRAND_TOTAL, payment.get_GrandTotal());
         values.put(KEY_AMOUNT_PAID, payment.get_AmountPaid());
         values.put(KEY_CHANGE, payment.get_Change());
-        values.put(KEY_PAYMENT_TIME, payment.get_PaymentTime());
         values.put(KEY_PAYMENT_DATE, payment.get_PaymentDate());
+        values.put(KEY_PAYMENT_TIME, payment.get_PaymentTime());
 
         db.insert(TABLE_PAYMENT, null, values);
         
@@ -519,8 +519,9 @@ public class DBHelper extends SQLiteOpenHelper {
         args.put(KEY_GRAND_TOTAL, payment.get_GrandTotal());
         args.put(KEY_AMOUNT_PAID, payment.get_AmountPaid());
         args.put(KEY_CHANGE, payment.get_Change());
-        args.put(KEY_PAYMENT_TIME, payment.get_PaymentTime());
         args.put(KEY_PAYMENT_DATE, payment.get_PaymentDate());
+        args.put(KEY_PAYMENT_TIME, payment.get_PaymentTime());
+
 
         return db.update(TABLE_PAYMENT, args, KEY_ID + "=" + payment.get_ID(), null) > 0;
     }
@@ -534,7 +535,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public List<Payment> getAllPaymentList() {
         List<Payment> paymentList = new ArrayList<>();
 
-        String selectQuery = "SELECT  * FROM " + TABLE_PAYMENT + " ORDER BY "+KEY_PAYMENT_DATE + " , "+KEY_PAYMENT_TIME;
+        String selectQuery = "SELECT  * FROM " + TABLE_PAYMENT + " ORDER BY "+KEY_ID + " DESC";
 
         
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -552,7 +553,7 @@ public class DBHelper extends SQLiteOpenHelper {
                         cursor.getString(7)
                 );
 
-                // Adding contact to list
+
                 paymentList.add(payment);
             } while (cursor.moveToNext());
         }
@@ -611,7 +612,7 @@ public class DBHelper extends SQLiteOpenHelper {
                         cursor.getInt(3),
                         cursor.getDouble(4)
                 );
-                // Adding contact to list
+                
                 orderDetailList.add(orderDetail);
             } while (cursor.moveToNext());
         }

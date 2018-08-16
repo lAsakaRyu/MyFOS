@@ -272,7 +272,7 @@ public class MainActivity extends AppCompatActivity
     public void addOrderButton(View event){
         String placedOrderID = InstanceDataHolder.getInstance().get_DbHelper().getPlacedOrderID(InstanceDataHolder.getInstance().get_ActiveTableNo());
         if( placedOrderID == null){
-            placedOrderID = InstanceDataHolder.getInstance().get_DbHelper().getNewID("placed_order","L");
+            placedOrderID = orderEditText.getText().toString();
             String dateOrdered = new SimpleDateFormat("dd/MM/yyyy").format(new Date().getTime());
             PlacedOrder placedOrder = new PlacedOrder(placedOrderID,dateOrdered,InstanceDataHolder.getInstance().get_ActiveTableNo(),"active");
             InstanceDataHolder.getInstance().get_DbHelper().addNewPlacedOrder(placedOrder);
@@ -324,6 +324,10 @@ public class MainActivity extends AppCompatActivity
         InstanceDataHolder.getInstance().set_ActiveTableNo(tableno);
         cashierEditText.setText(InstanceDataHolder.getInstance().get_ActiveStaff().get_Name());
         tableEditText.setText(tableno);
+        String placedOrderID = InstanceDataHolder.getInstance().get_DbHelper().getPlacedOrderID(InstanceDataHolder.getInstance().get_ActiveTableNo());
+        if(placedOrderID == null)
+            placedOrderID = InstanceDataHolder.getInstance().get_DbHelper().getNewID("placed_order","L");
+        orderEditText.setText(placedOrderID);
         updateMenuListView(tableno);
 
         dialogTable.show();

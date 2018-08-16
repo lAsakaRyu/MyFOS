@@ -12,9 +12,6 @@ import com.audio.yametech.myfos.R;
 
 import java.util.List;
 
-/**
- * Created by TAR UC on 7/28/2017.
- */
 
 public class MenuItemAdapter extends ArrayAdapter<ExtendedOrderDetails> {
     public MenuItemAdapter(Activity context, int resource, List<ExtendedOrderDetails> list) {

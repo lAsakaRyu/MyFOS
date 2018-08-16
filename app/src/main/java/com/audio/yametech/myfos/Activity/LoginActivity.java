@@ -12,7 +12,6 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -32,16 +31,12 @@ import com.audio.yametech.myfos.R;
 
 import java.util.List;
 
-/**
- * A login screen that offers login via username/password.
- */
+
 public class LoginActivity extends AppCompatActivity {
-    /**
-     * Keep track of the login task to ensure we can cancel it if requested.
-     */
+
     private UserLoginTask mAuthTask = null;
 
-    // UI references.
+
     private AutoCompleteTextView mUsernameView;
     private EditText mPasswordView;
     private View mProgressView;
@@ -51,7 +46,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        // Set up the login form.
+
         mUsernameView = (AutoCompleteTextView) findViewById(R.id.username);
 
         mPasswordView = (EditText) findViewById(R.id.password);
@@ -80,37 +75,26 @@ public class LoginActivity extends AppCompatActivity {
         InstanceDataHolder.getInstance().set_DbHelper(new DBHelper(this));
     }
 
-
-
-    /**
-     * Attempts to sign in or register the account specified by the login form.
-     * If there are form errors (invalid email, missing fields, etc.), the
-     * errors are presented and no actual login attempt is made.
-     */
     private void attemptLogin() {
         if (mAuthTask != null) {
             return;
         }
 
-        // Reset errors.
         mUsernameView.setError(null);
         mPasswordView.setError(null);
 
-        // Store values at the time of the login attempt.
         String username = mUsernameView.getText().toString();
         String password = mPasswordView.getText().toString();
 
         boolean cancel = false;
         View focusView = null;
 
-        // Check for a valid password, if the user entered one.
         if (!isPasswordValid(password)) {
             mPasswordView.setError(getString(R.string.error_invalid_password));
             focusView = mPasswordView;
             cancel = true;
         }
 
-        // Check for a valid username address.
         if (TextUtils.isEmpty(username)) {
             mUsernameView.setError(getString(R.string.error_field_required));
             focusView = mUsernameView;
@@ -122,12 +106,8 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         if (cancel) {
-            // There was an error; don't attempt login and focus the first
-            // form field with an error.
             focusView.requestFocus();
         } else {
-            // Show a progress spinner, and kick off a background task to
-            // perform the user login attempt.
             showProgress(true);
             mAuthTask = new UserLoginTask(username, password);
             mAuthTask.execute((Void) null);
@@ -135,12 +115,10 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private boolean isUsernameValid(String username) {
-        //TODO: Replace this with your own logic
         return username.contains("S");
     }
 
     private boolean isPasswordValid(String password) {
-        //TODO: Replace this with your own logic
         return password.length() > 4;
     }
 
@@ -173,8 +151,6 @@ public class LoginActivity extends AppCompatActivity {
                 }
             });
         } else {
-            // The ViewPropertyAnimator APIs are not available, so simply show
-            // and hide the relevant UI components.
             mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
             mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
         }
@@ -201,16 +177,14 @@ public class LoginActivity extends AppCompatActivity {
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
 
             try {
-                // Simulate network access.
                 Thread.sleep(2000);
             } catch (InterruptedException e) {
                 return false;
             }
             List<Security> securityList = InstanceDataHolder.getInstance().get_DbHelper().getAllSecurityList();
-            Log.i("MyFOS",securityList.toString());
+            //Log.i("MyFOS",securityList.toString());
             List<Staff> staffList = InstanceDataHolder.getInstance().get_DbHelper().getAllStaffList();
             if(staffList.isEmpty()) {
                 InstanceDataHolder.getInstance().get_DbHelper().addNewStaff(new Staff(InstanceDataHolder.getInstance().get_DbHelper().getNewID("staff", "S"), "Alex Chew", "Manager", "Male", "22/09/1997", "970922565225", "0163844970", "chewhw-wa15@student.tarc.edu.my", "Working", "970922", "08/08/2018", "?"));

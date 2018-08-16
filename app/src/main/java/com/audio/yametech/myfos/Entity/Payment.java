@@ -97,4 +97,18 @@ public class Payment {
     public boolean verifyPaymentAmount(){
         return this._AmountPaid-this._GrandTotal>=0;
     }
+
+    @Override
+    public String toString() {
+        return "Payment{" +
+                "_ID='" + _ID + '\'' +
+                ", _OrderID='" + _OrderID + '\'' +
+                ", _StaffID='" + _StaffID + '\'' +
+                ", _GrandTotal=" + _GrandTotal +
+                ", _AmountPaid=" + _AmountPaid +
+                ", _Change=" + _Change +
+                ", _PaymentDate='" + _PaymentDate + '\'' +
+                ", _PaymentTime='" + _PaymentTime + '\'' +
+                '}';
+    }
 }

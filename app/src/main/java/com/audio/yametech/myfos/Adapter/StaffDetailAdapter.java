@@ -13,9 +13,6 @@ import com.audio.yametech.myfos.R;
 
 import java.util.List;
 
-/**
- * Created by TAR UC on 7/28/2017.
- */
 
 public class StaffDetailAdapter extends ArrayAdapter<Staff> {
     public StaffDetailAdapter(Activity context, int resource, List<Staff> list) {

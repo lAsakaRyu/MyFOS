@@ -15,9 +15,6 @@ import com.audio.yametech.myfos.R;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by TAR UC on 7/28/2017.
- */
 
 public class ReportDetailAdapter extends ArrayAdapter<ExtendedChangeLog> {
     public ReportDetailAdapter(Activity context, int resource, List<ExtendedChangeLog> list) {
